@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6f18df" />
+    <meta
+      name="description"
+      content="Beyond Engineering: una experiencia vocacional de ingeniería y ciencia para estudiantes de preparatoria y sus familias."
+    />
+    <meta property="og:title" content="Beyond Engineering" />
+    <meta
+      property="og:description"
+      content="Explora cinco carreras, conversa con estudiantes y egresados, participa en un concurso de cohetes y descubre cómo usar IA en entornos profesionales."
+    />
+    <meta property="og:image" content="assets/beyond-engineering-poster.jpeg" />
+    <title>Beyond Engineering — 5 de diciembre</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#inicio" aria-label="Beyond Engineering, inicio">
+        <span class="brand-mark" aria-hidden="true">B·E</span>
+        <span>Beyond Engineering</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span>
+        <span class="sr-only">Abrir menú</span>
+      </button>
+      <nav id="site-nav" aria-label="Navegación principal">
+        <a href="#experiencia">Experiencia</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#carreras">Carreras</a>
+        <a href="#familias">Para familias</a>
+        <a class="nav-cta" href="https://bit.ly/BeyondEngineeringDic" target="_blank" rel="noreferrer">Regístrate</a>
+      </nav>
+    </header>
+
+    <main id="contenido">
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Preparatoria + familias · 05.12 · 10:00</p>
+          <h1 id="hero-title"><span>Beyond</span><span>Engineering</span></h1>
+          <p class="hero-lede">No vengas a escuchar qué es la ingeniería. Ven a verla despegar.</p>
+          <div class="hero-actions">
+            <a class="button button-light" href="https://bit.ly/BeyondEngineeringDic" target="_blank" rel="noreferrer">Quiero asistir <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#experiencia">Explorar la experiencia <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="launch-window">
+            <div class="rocket">
+              <svg viewBox="0 0 140 260" role="img">
+                <path d="M70 8c31 28 46 65 46 108v47H24v-47C24 73 39 36 70 8Z" fill="white" />
+                <circle cx="70" cy="92" r="20" fill="#32e1c4" stroke="#16121f" stroke-width="8" />
+                <path d="M24 137 5 179h34v-42M116 137l19 42h-34v-42" fill="#ff6a48" stroke="#16121f" stroke-width="8" stroke-linejoin="round" />
+                <path d="M48 163 37 216l33-18 33 18-11-53" fill="#f2ff55" stroke="#16121f" stroke-width="8" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <span class="visual-label label-one">Ciencia aplicada</span>
+            <span class="visual-label label-two">Ideas en acción</span>
+            <span class="visual-label label-three">Futuro profesional</span>
+          </div>
+        </div>
+
+        <div class="hero-meta">
+          <div><span>Fecha</span><strong>5 de diciembre</strong></div>
+          <div><span>Hora</span><strong>10:00 a. m.</strong></div>
+          <div><span>Sede</span><strong>Auditorio de Ingeniería</strong></div>
+        </div>
+      </section>
+
+      <section class="intro" id="experiencia" aria-labelledby="intro-title">
+        <div class="section-number">01</div>
+        <div class="intro-heading reveal">
+          <p class="eyebrow dark">Una experiencia para decidir haciendo</p>
+          <h2 id="intro-title">Ingeniería se entiende mejor cuando la vives.</h2>
+        </div>
+        <div class="intro-body reveal">
+          <p>
+            Beyond Engineering reúne a estudiantes de preparatoria y sus familias para descubrir cómo se estudia, se crea y se trabaja desde la ingeniería. La jornada combina conversación honesta, experimentación y herramientas útiles para el futuro.
+          </p>
+          <div class="audience-switch" aria-label="Elige tu recorrido">
+            <div class="switch-buttons" role="tablist" aria-label="Tipo de visitante">
+              <button type="button" role="tab" aria-selected="true" aria-controls="audience-panel" id="student-tab" data-audience="student">Soy estudiante</button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="audience-panel" id="family-tab" data-audience="family">Soy mamá o papá</button>
+            </div>
+            <div id="audience-panel" role="tabpanel" aria-live="polite" aria-labelledby="student-tab">
+              <strong data-audience-title>Tu misión: probar, preguntar y construir.</strong>
+              <p data-audience-copy>Conoce cinco rutas profesionales, escucha experiencias reales y pon a prueba tus ideas en el reto de cohetes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="experience-grid" aria-label="Actividades principales">
+        <article class="feature feature-panel reveal">
+          <span class="feature-index">01</span>
+          <div>
+            <p class="kicker">Voces reales</p>
+            <h3>Panel de estudiantes y egresados</h3>
+            <p>Preguntas abiertas sobre carrera, proyectos, retos, decisiones y vida profesional.</p>
+          </div>
+          <span class="feature-time">Inicio conjunto</span>
+        </article>
+        <article class="feature feature-rockets reveal">
+          <span class="feature-index">02</span>
+          <div>
+            <p class="kicker">Para estudiantes</p>
+            <h3>Concurso de cohetes</h3>
+            <p>Diseña, prueba y mejora. Una experiencia para convertir principios de ciencia e ingeniería en un lanzamiento real.</p>
+          </div>
+          <span class="feature-time">Actividad paralela</span>
+        </article>
+        <article class="feature feature-ai reveal">
+          <span class="feature-index">03</span>
+          <div>
+            <p class="kicker">Para familias</p>
+            <h3>IA útil para el trabajo</h3>
+            <p>Un curso práctico sobre cómo incorporar inteligencia artificial con criterio en tareas profesionales y productivas.</p>
+          </div>
+          <span class="feature-time">Actividad paralela</span>
+        </article>
+      </section>
+
+      <section class="agenda" id="agenda" aria-labelledby="agenda-title">
+        <div class="agenda-top">
+          <div>
+            <p class="eyebrow">La ruta del día</p>
+            <h2 id="agenda-title">Una apertura compartida.<br />Dos experiencias en paralelo.</h2>
+          </div>
+          <div class="countdown" aria-label="Cuenta regresiva al evento">
+            <p>Nos vemos en</p>
+            <div class="countdown-values">
+              <span><strong data-days>—</strong>días</span>
+              <span><strong data-hours>—</strong>horas</span>
+              <span><strong data-minutes>—</strong>min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline reveal">
+          <div class="timeline-row shared">
+            <time datetime="2026-12-05T10:00:00-07:00">10:00</time>
+            <div>
+              <span class="timeline-tag">Todos</span>
+              <h3>Bienvenida + panel de estudiantes y egresados</h3>
+              <p>Una conversación directa para conocer la experiencia académica y profesional desde dentro.</p>
+            </div>
+          </div>
+          <div class="parallel-label"><span>Después, elige tu ruta</span></div>
+          <div class="parallel-paths">
+            <div class="timeline-row student-path">
+              <time>11:00</time>
+              <div>
+                <span class="timeline-tag">Estudiantes</span>
+                <h3>Concurso de cohetes</h3>
+                <p>Concepto, construcción, lanzamiento y aprendizaje en equipo.</p>
+              </div>
+            </div>
+            <div class="timeline-row family-path">
+              <time>11:00</time>
+              <div>
+                <span class="timeline-tag">Familias</span>
+                <h3>Curso: IA en entornos profesionales</h3>
+                <p>Casos de uso, mejores preguntas y criterios para aplicar IA con responsabilidad.</p>
+              </div>
+            </div>
+          </div>
+          <p class="schedule-note">Los horarios posteriores a la apertura se confirmarán en el programa final.</p>
+        </div>
+      </section>
+
+      <section class="careers" id="carreras" aria-labelledby="careers-title">
+        <div class="careers-header">
+          <div class="section-number">02</div>
+          <div>
+            <p class="eyebrow dark">Cinco formas de transformar el mundo</p>
+            <h2 id="careers-title">Encuentra la ingeniería que habla tu idioma.</h2>
+          </div>
+        </div>
+
+        <div class="career-explorer reveal">
+          <div class="career-tabs" role="tablist" aria-label="Carreras">
+            <button type="button" role="tab" aria-selected="true" aria-controls="career-detail" data-career="biotec"><span>01</span> Biotecnología</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="career-detail" data-career="civil"><span>02</span> Civil</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="career-detail" data-career="industrial"><span>03</span> Industrial y de Sistemas</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="career-detail" data-career="mecatronica"><span>04</span> Mecatrónica</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="career-detail" data-career="computacion"><span>05</span> Tecnologías Computacionales</button>
+          </div>
+          <div class="career-detail career-biotec" id="career-detail" role="tabpanel" aria-live="polite">
+            <div class="career-symbol" data-career-symbol aria-hidden="true">DNA</div>
+            <div>
+              <p class="career-question" data-career-question>¿Y si pudieras diseñar soluciones usando la vida?</p>
+              <h3 data-career-title>Ingeniería en Biotecnología</h3>
+              <p data-career-description>Conecta biología, química y tecnología para trabajar en salud, alimentos, ambiente y procesos sostenibles.</p>
+              <ul data-career-topics>
+                <li>Bioprocesos</li><li>Innovación sostenible</li><li>Ciencia de laboratorio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="families" id="familias" aria-labelledby="families-title">
+        <div class="families-shape" aria-hidden="true"><span>AI</span></div>
+        <div class="families-content reveal">
+          <p class="eyebrow">Mientras ellos lanzan cohetes</p>
+          <h2 id="families-title">Tú también te llevas una herramienta para despegar.</h2>
+          <p class="families-lede">IA en entornos profesionales: un curso para madres y padres que quieren pasar de la curiosidad al uso productivo.</p>
+          <div class="course-outcomes">
+            <div><span>01</span><p>Identificar tareas donde la IA sí aporta valor.</p></div>
+            <div><span>02</span><p>Dar mejores instrucciones y evaluar resultados.</p></div>
+            <div><span>03</span><p>Usarla con criterio, privacidad y responsabilidad.</p></div>
+          </div>
+          <p class="course-note">No necesitas experiencia técnica. Trae curiosidad y, si puedes, un dispositivo.</p>
+        </div>
+      </section>
+
+      <section class="poster-section" aria-labelledby="poster-title">
+        <div class="poster-copy reveal">
+          <p class="eyebrow dark">Todo empieza con una pregunta</p>
+          <h2 id="poster-title">¿Hasta dónde quieres llevar tus ideas?</h2>
+          <p>Conoce personas que ya eligieron una ruta, explora cinco carreras y vive una jornada pensada para decidir con más claridad.</p>
+          <a class="button button-dark" href="https://bit.ly/BeyondEngineeringDic" target="_blank" rel="noreferrer">Apartar mi lugar <span aria-hidden="true">↗</span></a>
+        </div>
+        <figure class="poster-frame reveal">
+          <img src="assets/beyond-engineering-poster.jpeg" alt="Cartel original de Beyond Engineering con los datos del evento y código QR de registro" loading="lazy" />
+          <figcaption>Pieza oficial del evento</figcaption>
+        </figure>
+      </section>
+
+      <section class="final-cta" aria-labelledby="final-title">
+        <p class="eyebrow">5 de diciembre · 10:00 a. m.</p>
+        <h2 id="final-title">Tu siguiente gran idea<br />puede empezar aquí.</h2>
+        <a class="button button-accent" href="https://bit.ly/BeyondEngineeringDic" target="_blank" rel="noreferrer">Regístrate ahora <span aria-hidden="true">↗</span></a>
+        <div class="cta-orbit" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="#inicio"><span class="brand-mark">B·E</span><span>Beyond Engineering</span></a>
+      <p>Biotecnología · Civil · Industrial y de Sistemas · Mecatrónica · Tecnologías Computacionales</p>
+      <a href="https://bit.ly/BeyondEngineeringDic" target="_blank" rel="noreferrer">Registro ↗</a>
+    </footer>
+  </body>
+</html>
