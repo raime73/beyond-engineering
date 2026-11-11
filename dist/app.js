@@ -34,7 +34,7 @@ const audienceContent = {
   },
   family: {
     title: 'Tu misión: acompañar y llevarte algo útil.',
-    copy: 'Conoce el entorno que vivirán las y los estudiantes y participa en un curso práctico de IA para el trabajo.'
+    copy: 'Conoce el entorno que vivirán las y los estudiantes y participa en un curso práctico de IA aplicada a procesos empresariales.'
   }
 };
 

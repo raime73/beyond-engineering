@@ -6,7 +6,7 @@ Sitio oficial del evento **Beyond Engineering**, una experiencia vocacional para
 
 - Panel de estudiantes y egresados.
 - Concurso de cohetes para estudiantes.
-- Curso de inteligencia artificial aplicada a entornos profesionales para familias.
+- Curso de inteligencia artificial aplicada a procesos empresariales para familias.
 - Explorador interactivo de cinco carreras de ingeniería.
 - Agenda, cuenta regresiva y diseño adaptable a dispositivos móviles.
 
