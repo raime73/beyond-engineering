@@ -60,12 +60,15 @@ button { color: inherit; }
   transition: background 180ms ease, border-color 180ms ease;
 }
 .mission-header.scrolled { background: rgba(7,16,18,.92); border-color: var(--line); backdrop-filter: blur(14px); }
-.mission-brand { display: inline-flex; align-items: center; gap: .7rem; text-decoration: none; font-size: .78rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.mission-brand { display: inline-flex; align-items: center; gap: .7rem; margin-right: auto; text-decoration: none; font-size: .78rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
 .mission-brand b { color: var(--amber); }
 .brand-signal { position: relative; display: block; width: 32px; height: 32px; border: 1px solid var(--cyan); border-radius: 50%; }
 .brand-signal::before, .brand-signal::after { content: ""; position: absolute; border: 1px solid var(--cyan); border-radius: 50%; inset: 5px; }
 .brand-signal::after { inset: 11px; background: var(--cyan); }
-nav { display: flex; gap: clamp(1rem, 3vw, 2.6rem); }
+.back-to-event { display: inline-flex; align-items: center; gap: .5rem; min-height: 40px; margin-left: 1rem; padding: .55rem .8rem; border: 1px solid var(--line); color: var(--paper); text-decoration: none; font-size: .68rem; font-weight: 850; letter-spacing: .06em; text-transform: uppercase; transition: background 160ms ease, color 160ms ease, border-color 160ms ease; }
+.back-to-event:hover, .back-to-event:focus-visible { border-color: var(--amber); background: var(--amber); color: var(--night); }
+.back-text-short { display: none; }
+nav { display: flex; gap: clamp(1rem, 3vw, 2.6rem); margin-left: clamp(1rem, 2vw, 2rem); }
 nav a { position: relative; color: var(--paper); text-decoration: none; font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
 nav a::after { content: ""; position: absolute; left: 0; right: 100%; bottom: -.35rem; height: 2px; background: var(--cyan); transition: right 160ms ease; }
 nav a:hover::after, nav a:focus-visible::after { right: 0; }
@@ -195,6 +198,7 @@ h1 strong { margin-left: clamp(1rem, 7vw, 6rem); color: transparent; -webkit-tex
 
 @media (max-width: 980px) {
   .menu-toggle { display: block; position: relative; z-index: 2; }
+  .back-to-event { position: relative; z-index: 2; }
   nav { position: fixed; inset: 0; flex-direction: column; justify-content: center; align-items: flex-start; padding: 6rem var(--pad); background: rgba(7,16,18,.98); transform: translateX(100%); transition: transform 200ms ease; }
   nav.open { transform: none; }
   nav a { font-family: var(--display); font-size: clamp(2.2rem, 8vw, 4.5rem); line-height: 1; }
@@ -217,6 +221,9 @@ h1 strong { margin-left: clamp(1rem, 7vw, 6rem); color: transparent; -webkit-tex
 @media (max-width: 620px) {
   :root { --pad: 1rem; }
   .mission-header { min-height: 66px; }
+  .back-to-event { min-height: 38px; margin-left: .5rem; padding: .45rem .6rem; }
+  .back-text { display: none; }
+  .back-text-short { display: inline; }
   h1 { font-size: 22vw; }
   h1 strong { margin-left: 0; }
   .story-intro { padding-left: .8rem; }
