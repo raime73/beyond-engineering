@@ -133,6 +133,13 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 #audience-panel strong { display: block; font-size: 1.15rem; }
 #audience-panel p { margin: .5rem 0 0; color: #514a58; }
 
+.event-video { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad) clamp(6rem, 11vw, 9rem); display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+.event-video-copy h2 { margin-bottom: 1.5rem; font-size: clamp(2.8rem, 5vw, 5.5rem); }
+.event-video-copy > p:not(.eyebrow):not(.event-video-meta) { max-width: 32rem; font-size: clamp(1.05rem, 1.8vw, 1.3rem); }
+.event-video-meta { margin: 1.5rem 0 0; color: #514a58; font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+.event-video-frame { margin: 0; background: var(--ink); border: 3px solid var(--ink); box-shadow: 16px 16px 0 var(--purple); overflow: hidden; }
+.event-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: var(--ink); }
+
 .experience-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
 .feature { position: relative; min-height: 530px; padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--ink); overflow: hidden; }
 .feature:last-child { border-right: 0; }
@@ -239,6 +246,8 @@ footer > a:last-child { font-weight: 800; text-underline-offset: .3rem; }
   .hero-meta { margin: 0 calc(var(--pad) * -1); }
   .intro { grid-template-columns: 50px 1fr; }
   .intro-body { grid-column: 2; }
+  .event-video { grid-template-columns: 1fr; }
+  .event-video-copy { max-width: 760px; }
   .experience-grid { grid-template-columns: 1fr; }
   .feature { min-height: 380px; border-right: 0; border-bottom: 1px solid var(--ink); }
   .feature:last-child { border-bottom: 0; }
@@ -270,6 +279,9 @@ footer > a:last-child { font-weight: 800; text-underline-offset: .3rem; }
   .intro { grid-template-columns: 1fr; }
   .intro .section-number, .intro-body { grid-column: auto; }
   .intro-heading h2 { font-size: 3.3rem; }
+  .event-video { padding-bottom: 6rem; }
+  .event-video-copy h2 { font-size: 3.1rem; }
+  .event-video-frame { box-shadow: 10px 10px 0 var(--purple); }
   .feature { min-height: 410px; }
   .agenda-top { margin-bottom: 3rem; }
   .timeline-row { grid-template-columns: 1fr; gap: 1rem; }
