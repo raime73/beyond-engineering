@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#081216" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Apagón zombi: una misión vocacional para descubrir cómo cinco ingenierías colaboran con inteligencia artificial."
+    />
+    <title>Apagón zombi — Misión de ingeniería</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar a la misión</a>
+
+    <header class="mission-header" data-header>
+      <a class="mission-brand" href="#mision" aria-label="Apagón zombi, inicio">
+        <span class="brand-signal" aria-hidden="true"></span>
+        <span>Apagón <b>zombi</b></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mission-nav">
+        <span></span><span></span><span class="sr-only">Abrir menú</span>
+      </button>
+      <nav id="mission-nav" aria-label="Navegación de la misión">
+        <a href="#mision">La misión</a>
+        <a href="#ingenierias">Tu ingeniería</a>
+        <a href="#estrategia">La estrategia</a>
+      </nav>
+    </header>
+
+    <main id="contenido">
+      <section class="mission-hero" id="mision" aria-labelledby="mission-title">
+        <div class="noise" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-copy reveal">
+          <p class="transmission"><span></span> Transmisión interrumpida · 17:10</p>
+          <h1 id="mission-title"><span>Apagón</span><strong>zombi</strong></h1>
+          <div class="story-intro">
+            <p>La ciudad se apagó. Sus celulares perdieron la señal. El último aviso confirmó que el gimnasio municipal abrió como refugio.</p>
+            <p>Son cinco amigos recién egresados de ingeniería. Tienen conocimientos distintos, recursos limitados y una decisión que tomar juntos.</p>
+            <p>El refugio cierra a las 18:25. <strong>¿Cómo van a llegar?</strong></p>
+          </div>
+          <a class="action-button" href="#ingenierias">Entrar a la misión <span aria-hidden="true">↘</span></a>
+        </div>
+
+        <div class="city-panel reveal" aria-label="Ilustración de una ciudad a oscuras con una ruta hacia el refugio">
+          <svg viewBox="0 0 760 780" role="img" aria-labelledby="city-title city-desc">
+            <title id="city-title">La ciudad durante el apagón</title>
+            <desc id="city-desc">Edificios oscuros, una biblioteca, un puente y una ruta de emergencia hasta un refugio.</desc>
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#10252b" />
+                <stop offset="1" stop-color="#05090b" />
+              </linearGradient>
+              <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.3" fill="#ecf5ed" opacity=".12" />
+              </pattern>
+              <filter id="glow"><feGaussianBlur stdDeviation="7" result="blur" /><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <rect width="760" height="780" fill="url(#sky)" />
+            <rect width="760" height="780" fill="url(#dots)" />
+            <circle cx="620" cy="116" r="58" fill="#f0a33b" opacity=".18" filter="url(#glow)" />
+            <g fill="#091316" stroke="#24363b" stroke-width="3">
+              <path d="M0 325h94v-94h82v94h54V168h120v157h54V252h96v73h66V196h118v129h76v310H0Z" />
+              <path d="M42 231v-74h26v74M107 231v-125h24v125M595 196v-96h25v96M642 196v-47h31v47" />
+            </g>
+            <g fill="#f0a33b" opacity=".48">
+              <rect x="258" y="211" width="18" height="26"/><rect x="302" y="211" width="18" height="26"/>
+              <rect x="442" y="286" width="16" height="22"/><rect x="474" y="286" width="16" height="22"/>
+              <rect x="608" y="238" width="20" height="27"/>
+            </g>
+            <path d="M0 552C118 490 220 503 306 544s185 56 262 8 136-56 192-27v255H0Z" fill="#0c1b1f" />
+            <g stroke="#1f4047" stroke-width="3" opacity=".75">
+              <path d="M0 681 255 520M153 780 379 541M388 780 496 570M592 780 626 545" />
+              <path d="M0 647h760M0 710h760" />
+            </g>
+            <path d="M142 627C205 596 231 560 304 574c58 11 91 74 157 43 62-29 58-96 133-108" fill="none" stroke="#55e7e0" stroke-width="8" stroke-dasharray="2 18" stroke-linecap="round" />
+            <g transform="translate(92 554)">
+              <path d="M0 0h143v88H0Z" fill="#101f23" stroke="#ecf5ed" stroke-width="3" />
+              <path d="m12 0 60-42 60 42" fill="#101f23" stroke="#ecf5ed" stroke-width="3" />
+              <text x="71" y="42" text-anchor="middle" fill="#ecf5ed" font-size="18" font-family="Arial" font-weight="800">BIBLIOTECA</text>
+            </g>
+            <g transform="translate(570 430)">
+              <path d="M0 0h154v102H0Z" fill="#f0a33b" stroke="#071012" stroke-width="5" />
+              <path d="m10 0 67-44 67 44" fill="#f0a33b" stroke="#071012" stroke-width="5" />
+              <text x="77" y="47" text-anchor="middle" fill="#071012" font-size="20" font-family="Arial" font-weight="900">REFUGIO</text>
+              <text x="77" y="72" text-anchor="middle" fill="#071012" font-size="13" font-family="Arial" font-weight="700">CIERRA 18:25</text>
+            </g>
+            <g fill="#071012" opacity=".82">
+              <circle cx="52" cy="510" r="12"/><path d="M43 524h18l9 46H33Z"/>
+              <circle cx="710" cy="351" r="11"/><path d="M701 364h18l8 42h-34Z"/>
+              <circle cx="355" cy="402" r="8"/><path d="M349 413h13l6 32h-25Z"/>
+            </g>
+            <g transform="translate(247 586)" fill="#ecf5ed" stroke="#071012" stroke-width="4">
+              <circle cx="0" cy="0" r="14"/><circle cx="32" cy="-7" r="14"/><circle cx="65" cy="2" r="14"/><circle cx="98" cy="-5" r="14"/><circle cx="131" cy="1" r="14"/>
+              <path d="M-10 16h20l8 43h-36ZM22 9h20l8 43H14ZM55 18h20l8 43H47ZM88 11h20l8 43H80ZM121 17h20l8 43h-36Z" />
+            </g>
+            <g transform="translate(37 35)">
+              <rect width="226" height="55" rx="4" fill="#071012" stroke="#55e7e0" stroke-width="2" />
+              <text x="18" y="23" fill="#55e7e0" font-family="monospace" font-size="13">RED LOCAL</text>
+              <text x="18" y="43" fill="#ecf5ed" font-family="monospace" font-size="18" font-weight="700">SIN CONEXIÓN</text>
+              <circle cx="196" cy="28" r="8" fill="#f0a33b" />
+            </g>
+          </svg>
+          <div class="panel-caption"><span>Mapa parcial</span><b>Ruta sin confirmar</b></div>
+        </div>
+
+        <div class="scenario-status" aria-label="Datos del escenario">
+          <div><span>Salida prevista</span><strong>17:10</strong></div>
+          <div><span>Oscurece</span><strong>18:05</strong></div>
+          <div class="critical"><span>Cierre del refugio</span><strong>18:25</strong></div>
+          <div><span>Estado de la red</span><strong>Sin conexión</strong></div>
+        </div>
+      </section>
+
+      <section class="engineers-section" id="ingenierias" aria-labelledby="engineers-title">
+        <div class="section-heading reveal">
+          <p class="section-code">02 // EL EQUIPO</p>
+          <h2 id="engineers-title">Cinco ingenierías.<br /><em>Una sola salida.</em></h2>
+          <p>Elige la carrera que te asignaron. Abre su prompt, cópialo y llévalo a ChatGPT para construir tres posibles estrategias.</p>
+        </div>
+
+        <div class="engineer-grid">
+          <article class="engineer-card card-itc reveal">
+            <div class="portrait" aria-hidden="true"><span>&lt;/&gt;</span><i>01</i></div>
+            <div class="card-copy">
+              <p class="career-code">ITC</p>
+              <h3>Ingeniería en Tecnologías Computacionales</h3>
+              <p>“La información cambia. Tu agente de IA debe ayudar al equipo a responder”.</p>
+              <button class="prompt-button" type="button" data-prompt="itc">Ver mi prompt <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="engineer-card card-civil reveal">
+            <div class="portrait" aria-hidden="true"><span>△</span><i>02</i></div>
+            <div class="card-copy">
+              <p class="career-code">IC</p>
+              <h3>Ingeniería Civil</h3>
+              <p>“Cada recorrido tiene puntos críticos. Tú puedes convertirlos en un plan”.</p>
+              <button class="prompt-button" type="button" data-prompt="civil">Ver mi prompt <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="engineer-card card-industrial reveal">
+            <div class="portrait" aria-hidden="true"><span>↻</span><i>03</i></div>
+            <div class="card-copy">
+              <p class="career-code">IIS</p>
+              <h3>Ingeniería Industrial</h3>
+              <p>“Cinco personas, varios recursos y un tiempo límite. Tú conectas las operaciones”.</p>
+              <button class="prompt-button" type="button" data-prompt="industrial">Ver mi prompt <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="engineer-card card-mecatronica reveal">
+            <div class="portrait" aria-hidden="true"><span>⚙</span><i>04</i></div>
+            <div class="card-copy">
+              <p class="career-code">IMT</p>
+              <h3>Ingeniería Mecatrónica</h3>
+              <p>“Detectar, decidir y actuar. Tus sistemas responden cuando algo falla”.</p>
+              <button class="prompt-button" type="button" data-prompt="mecatronica">Ver mi prompt <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+
+          <article class="engineer-card card-biotec reveal">
+            <div class="portrait" aria-hidden="true"><span>DNA</span><i>05</i></div>
+            <div class="card-copy">
+              <p class="career-code">IBT</p>
+              <h3>Ingeniería en Biotecnología</h3>
+              <p>“Sobrevivir también exige entender lo que no se ve”.</p>
+              <button class="prompt-button" type="button" data-prompt="biotec">Ver mi prompt <span aria-hidden="true">↗</span></button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="strategy-section" id="estrategia" aria-labelledby="strategy-title">
+        <div class="strategy-intro reveal">
+          <p class="section-code">03 // INTEGRACIÓN</p>
+          <h2 id="strategy-title">La estrategia<br /><em>del equipo</em></h2>
+          <p>Ahora cada integrante sabe qué puede aportar. El siguiente reto es lograr que las cinco ideas funcionen juntas.</p>
+          <div class="team-progress" aria-live="polite">
+            <span>Expediente del equipo</span>
+            <strong><b data-complete-count>0</b>/5 estrategias</strong>
+            <div class="progress-track" aria-hidden="true"><i data-progress-bar></i></div>
+          </div>
+        </div>
+
+        <form class="team-form" data-team-form>
+          <fieldset class="strategy-card reveal" data-career-block="itc">
+            <legend><span>01</span> ITC</legend>
+            <label for="name-itc">Nombre del personaje</label>
+            <input id="name-itc" name="itc-name" type="text" autocomplete="off" placeholder="Ej. Sofía" />
+            <label for="strategy-itc">Estrategia elegida</label>
+            <textarea id="strategy-itc" name="itc-strategy" rows="6" placeholder="Pega aquí la estrategia que eligió el equipo…"></textarea>
+          </fieldset>
+
+          <fieldset class="strategy-card reveal" data-career-block="civil">
+            <legend><span>02</span> Ingeniería Civil</legend>
+            <label for="name-civil">Nombre del personaje</label>
+            <input id="name-civil" name="civil-name" type="text" autocomplete="off" placeholder="Ej. Diego" />
+            <label for="strategy-civil">Estrategia elegida</label>
+            <textarea id="strategy-civil" name="civil-strategy" rows="6" placeholder="Pega aquí la estrategia que eligió el equipo…"></textarea>
+          </fieldset>
+
+          <fieldset class="strategy-card reveal" data-career-block="industrial">
+            <legend><span>03</span> Ingeniería Industrial</legend>
+            <label for="name-industrial">Nombre del personaje</label>
+            <input id="name-industrial" name="industrial-name" type="text" autocomplete="off" placeholder="Ej. Valeria" />
+            <label for="strategy-industrial">Estrategia elegida</label>
+            <textarea id="strategy-industrial" name="industrial-strategy" rows="6" placeholder="Pega aquí la estrategia que eligió el equipo…"></textarea>
+          </fieldset>
+
+          <fieldset class="strategy-card reveal" data-career-block="mecatronica">
+            <legend><span>04</span> Ingeniería Mecatrónica</legend>
+            <label for="name-mecatronica">Nombre del personaje</label>
+            <input id="name-mecatronica" name="mecatronica-name" type="text" autocomplete="off" placeholder="Ej. Mateo" />
+            <label for="strategy-mecatronica">Estrategia elegida</label>
+            <textarea id="strategy-mecatronica" name="mecatronica-strategy" rows="6" placeholder="Pega aquí la estrategia que eligió el equipo…"></textarea>
+          </fieldset>
+
+          <fieldset class="strategy-card reveal" data-career-block="biotec">
+            <legend><span>05</span> Ingeniería en Biotecnología</legend>
+            <label for="name-biotec">Nombre del personaje</label>
+            <input id="name-biotec" name="biotec-name" type="text" autocomplete="off" placeholder="Ej. Camila" />
+            <label for="strategy-biotec">Estrategia elegida</label>
+            <textarea id="strategy-biotec" name="biotec-strategy" rows="6" placeholder="Pega aquí la estrategia que eligió el equipo…"></textarea>
+          </fieldset>
+        </form>
+
+        <div class="final-prompt reveal">
+          <div class="final-prompt-heading">
+            <div>
+              <p class="section-code">PROMPT 06</p>
+              <h3>Infografía del journey</h3>
+            </div>
+            <span data-prompt-status>Completa los datos del equipo</span>
+          </div>
+          <pre id="final-prompt-output" tabindex="0" aria-label="Prompt final generado"></pre>
+          <button class="copy-button" type="button" data-copy-final>Copiar prompt de la infografía <span aria-hidden="true">⧉</span></button>
+        </div>
+      </section>
+
+      <section class="outcome-section" aria-labelledby="outcome-title">
+        <div class="outcome-copy reveal">
+          <p class="section-code">04 // POSIBLE RESULTADO</p>
+          <h2 id="outcome-title">Las cinco ideas<br /><em>en un solo mapa</em></h2>
+          <p>Al pegar el prompt final en ChatGPT, el equipo puede convertir sus decisiones en una infografía integrada como esta.</p>
+        </div>
+        <figure class="outcome-image reveal">
+          <img src="assets/team-journey-example.webp" alt="Ejemplo de infografía horizontal con cinco jóvenes ingenieros y cuatro etapas para llegar al refugio" loading="lazy" />
+          <figcaption>Ejemplo de integración · El resultado dependerá de las cinco estrategias elegidas</figcaption>
+        </figure>
+      </section>
+
+      <section class="mission-close" aria-labelledby="close-title">
+        <p>Fin de la transmisión</p>
+        <h2 id="close-title">Una ciudad en crisis.<br />Cinco ingenierías.<br /><em>Una estrategia para llegar juntos.</em></h2>
+        <a href="#mision">Reiniciar misión <span aria-hidden="true">↑</span></a>
+      </section>
+    </main>
+
+    <dialog class="prompt-dialog" data-prompt-dialog aria-labelledby="prompt-dialog-title">
+      <div class="dialog-topline">
+        <p>Archivo recuperado <span data-dialog-number>01</span></p>
+        <button type="button" class="dialog-close" data-dialog-close aria-label="Cerrar prompt">×</button>
+      </div>
+      <div class="dialog-body">
+        <p class="section-code" data-dialog-code>ITC</p>
+        <h2 id="prompt-dialog-title" data-dialog-title>Ingeniería en Tecnologías Computacionales</h2>
+        <p class="dialog-help">Copia el texto completo y pégalo en ChatGPT. Después, elige con tu equipo una de las tres estrategias.</p>
+        <pre data-dialog-prompt tabindex="0"></pre>
+        <button class="copy-button" type="button" data-copy-career>Copiar prompt <span aria-hidden="true">⧉</span></button>
+      </div>
+    </dialog>
+
+    <div class="copy-toast" role="status" aria-live="polite" data-copy-toast>Prompt copiado. Ya puedes pegarlo en ChatGPT.</div>
+  </body>
+</html>
