@@ -135,8 +135,7 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 
 .event-video { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad) clamp(6rem, 11vw, 9rem); display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
 .event-video-copy h2 { margin-bottom: 1.5rem; font-size: clamp(2.8rem, 5vw, 5.5rem); }
-.event-video-copy > p:not(.eyebrow):not(.event-video-meta) { max-width: 32rem; font-size: clamp(1.05rem, 1.8vw, 1.3rem); }
-.event-video-meta { margin: 1.5rem 0 0; color: #514a58; font-size: .78rem; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+.event-video-copy > p:not(.eyebrow) { max-width: 32rem; font-size: clamp(1.05rem, 1.8vw, 1.3rem); }
 .event-video-frame { margin: 0; background: var(--ink); border: 3px solid var(--ink); box-shadow: 16px 16px 0 var(--purple); overflow: hidden; }
 .event-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: var(--ink); }
 
@@ -214,6 +213,7 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 
 .poster-section { max-width: var(--max); margin: 0 auto; padding: clamp(6rem, 12vw, 10rem) var(--pad); display: grid; grid-template-columns: 1fr .65fr; gap: clamp(3rem, 8vw, 8rem); align-items: center; }
 .poster-copy p:not(.eyebrow) { max-width: 37rem; font-size: 1.15rem; }
+.poster-copy .poster-urgency { margin: 1.5rem 0 0; color: var(--purple); font-weight: 850; }
 .poster-frame { margin: 0; transform: rotate(2deg); }
 .poster-frame img { max-height: 690px; margin-left: auto; border: 2px solid var(--ink); box-shadow: 18px 18px 0 var(--ink); }
 .poster-frame figcaption { margin-top: 1.7rem; font-size: .72rem; text-align: right; text-transform: uppercase; letter-spacing: .1em; font-weight: 750; }
