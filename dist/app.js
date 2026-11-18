@@ -68,7 +68,11 @@ const careers = {
     title: 'Ingeniería Civil',
     description: 'Imagina, diseña y construye infraestructura segura y sostenible para conectar comunidades y mejorar su entorno.',
     topics: ['Estructuras', 'Ciudades sostenibles', 'Gestión de obra'],
-    contact: { name: 'Silvia Eugenia Prieto Loya', email: 'silvia.prieto@tec.mx' }
+    contact: {
+      name: 'Silvia Eugenia Prieto Loya',
+      email: 'silvia.prieto@tec.mx',
+      whatsapp: { url: 'https://wa.me/qr/QX4ASZ7EN3Y6H1', image: 'assets/qr-silvia-whatsapp.jpeg' }
+    }
   },
   industrial: {
     symbol: '↗',
