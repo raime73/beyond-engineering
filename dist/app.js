@@ -56,7 +56,11 @@ const careers = {
     title: 'Ingeniería en Biotecnología',
     description: 'Conecta biología, química y tecnología para trabajar en salud, alimentos, ambiente y procesos sostenibles.',
     topics: ['Bioprocesos', 'Innovación sostenible', 'Ciencia de laboratorio'],
-    contact: { name: 'Eloisa Alin Villegas Lugo', email: 'eloisa.villegas@tec.mx' }
+    contact: {
+      name: 'Eloisa Alin Villegas Lugo',
+      email: 'eloisa.villegas@tec.mx',
+      whatsapp: { url: 'https://wa.me/message/NZBMBGM73UXLE1?src=qr', image: 'assets/qr-eloisa-whatsapp.jpeg' }
+    }
   },
   civil: {
     symbol: '∆',
@@ -72,7 +76,11 @@ const careers = {
     title: 'Ingeniería Industrial y de Sistemas',
     description: 'Integra personas, datos y procesos para resolver problemas complejos y transformar organizaciones.',
     topics: ['Optimización', 'Analítica', 'Innovación de procesos'],
-    contact: { name: 'Jenaro Nosedal Sánchez', email: 'jenaro.nosedal@tec.mx' }
+    contact: {
+      name: 'Jenaro Nosedal Sánchez',
+      email: 'jenaro.nosedal@tec.mx',
+      whatsapp: { url: 'https://wa.me/qr/5JGPRQUFHDWRM1', image: 'assets/qr-jenaro-whatsapp.jpeg' }
+    }
   },
   mecatronica: {
     symbol: '⚙',
@@ -88,7 +96,11 @@ const careers = {
     title: 'Ingeniería en Tecnologías Computacionales',
     description: 'Diseña software, sistemas e inteligencia digital capaces de cambiar la forma en que vivimos y trabajamos.',
     topics: ['Software', 'Datos e IA', 'Productos digitales'],
-    contact: { name: 'Raime Alejandro Bustos Gardea', email: 'raime.bustos@tec.mx', whatsapp: 'https://wa.me/qr/WESFU3YXVUSKD1' }
+    contact: {
+      name: 'Raime Alejandro Bustos Gardea',
+      email: 'raime.bustos@tec.mx',
+      whatsapp: { url: 'https://wa.me/qr/WESFU3YXVUSKD1', image: 'assets/qr-raime-whatsapp.jpeg' }
+    }
   }
 };
 
@@ -110,7 +122,11 @@ document.querySelectorAll('[data-career]').forEach((button) => {
     contactEmail.href = `mailto:${career.contact.email}`;
     const contactQr = document.querySelector('[data-career-qr]');
     contactQr.hidden = !career.contact.whatsapp;
-    if (career.contact.whatsapp) contactQr.href = career.contact.whatsapp;
+    if (career.contact.whatsapp) {
+      contactQr.href = career.contact.whatsapp.url;
+      contactQr.querySelector('img').src = career.contact.whatsapp.image;
+      contactQr.querySelector('span').textContent = `WhatsApp de ${career.contact.name.split(' ')[0]} ↗`;
+    }
   });
 });
 
