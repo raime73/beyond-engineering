@@ -198,12 +198,14 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 .career-detail > div:last-child > p:not(.career-question) { max-width: 42rem; font-size: 1.12rem; }
 .career-detail ul { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 1.5rem 0 0; list-style: none; }
 .career-detail li { padding: .45rem .7rem; border: 1px solid currentColor; border-radius: 999px; font-size: .75rem; font-weight: 750; }
-.career-contact { margin-top: 2rem; padding-top: 1.15rem; border-top: 1px solid currentColor; display: grid; gap: .15rem; }
+.career-contact { margin-top: 2rem; padding-top: 1.15rem; border-top: 1px solid currentColor; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.25rem; align-items: center; }
+.career-contact > :not(.contact-qr) { grid-column: 1; }
 .career-contact p { margin: 0 0 .25rem; font-size: .75rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
 .career-contact strong { font-size: 1rem; }
 .career-contact a, .guidance-contact a { width: fit-content; max-width: 100%; overflow-wrap: anywhere; text-underline-offset: .2em; font-weight: 750; }
 .career-contact a:hover, .guidance-contact a:hover { text-decoration-thickness: 2px; }
-.contact-qr { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; margin-top: .75rem; color: var(--ink); font-size: .7rem; font-weight: 850; text-decoration: none; }
+.contact-qr { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; color: var(--ink); font-size: .7rem; font-weight: 850; text-decoration: none; }
+.career-contact .contact-qr { grid-column: 2; grid-row: 1 / span 3; }
 .contact-qr[hidden] { display: none; }
 .contact-qr img { width: 96px; height: auto; aspect-ratio: 569 / 532; object-fit: contain; border: 1px solid var(--ink); background: var(--white); }
 .contact-qr span { text-decoration: underline; text-underline-offset: .2em; }
@@ -211,10 +213,12 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 .career-guidance { max-width: var(--max); margin: 2rem auto 0; padding: clamp(1.5rem, 3vw, 3rem); border: 1px solid var(--ink); display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(1.5rem, 4vw, 4rem); }
 .career-guidance-intro h3 { margin: .5rem 0; font-size: clamp(2rem, 3.5vw, 3.4rem); line-height: 1; letter-spacing: -.05em; }
 .career-guidance-intro > p:last-child { max-width: 32rem; margin-bottom: 0; }
-.career-guidance-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.guidance-contact { padding: 1.25rem; background: var(--white); border: 1px solid var(--ink); display: flex; flex-direction: column; align-items: flex-start; }
-.guidance-contact h4 { margin: 0 0 1rem; font-size: 1.1rem; line-height: 1.2; }
-.guidance-contact p { margin: auto 0 .25rem; font-weight: 700; }
+.career-guidance-options { display: grid; grid-template-columns: 1fr; gap: .75rem; }
+.guidance-contact { padding: 1.25rem; background: var(--white); border: 1px solid var(--ink); display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 1.25rem; align-content: start; align-items: center; }
+.guidance-contact h4 { grid-column: 1; margin: 0 0 .6rem; font-size: 1.1rem; line-height: 1.2; }
+.guidance-contact p { grid-column: 1; margin: 0; font-weight: 700; }
+.guidance-contact > a:not(.contact-qr) { grid-column: 1; }
+.guidance-contact .contact-qr { grid-column: 2; grid-row: 1 / span 3; }
 
 .families { position: relative; min-height: 780px; display: grid; grid-template-columns: .8fr 1.2fr; background: var(--purple); color: var(--white); overflow: hidden; }
 .families-shape { position: relative; display: grid; place-items: center; background: var(--mint); color: var(--ink); clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%); }
@@ -313,7 +317,8 @@ footer > a:last-child { font-weight: 800; text-underline-offset: .3rem; }
   .careers-header { grid-template-columns: 1fr; }
   .career-tabs { grid-template-columns: repeat(5, minmax(145px, 1fr)); }
   .career-detail { min-height: 560px; }
-  .career-guidance-options { grid-template-columns: 1fr; }
+  .career-contact { column-gap: .75rem; }
+  .guidance-contact { column-gap: .75rem; }
   .career-symbol { width: 90px; height: 90px; font-size: 1.35rem; }
   .families-shape { min-height: 340px; }
   .families-content h2 { font-size: 3.1rem; }
