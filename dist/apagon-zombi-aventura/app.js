@@ -615,6 +615,14 @@ function render() {
   bindCommonActions();
   app.focus({ preventScroll: true });
   window.scrollTo({ top: 0, behavior: 'instant' });
+  if (state.screen === 'play' && state.phase === 'consequence') {
+    window.requestAnimationFrame(() => {
+      const consequence = document.querySelector('.consequence-panel');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      consequence?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
+      consequence?.focus({ preventScroll: true });
+    });
+  }
 }
 
 function renderHome() {
@@ -622,6 +630,12 @@ function renderHome() {
   app.innerHTML = `
     <section class="screen hero-screen" id="inicio">
       <div class="scene-backdrop" style="${sceneStyle('city')}" aria-hidden="true"></div>
+      <div class="hero-motion" aria-hidden="true">
+        <span class="signal-wave wave-a"></span>
+        <span class="signal-wave wave-b"></span>
+        <span class="route-light"></span>
+        <span class="emergency-flare"></span>
+      </div>
       <div class="hero-content">
         <p class="eyebrow">Transmisión interrumpida · 17:10</p>
         <h1 class="hero-title">Apagón <span>zombi</span></h1>
@@ -684,18 +698,18 @@ function renderMode() {
         <div class="section-heading">
           <p class="eyebrow">Paso 2 de 2 · Elige la experiencia</p>
           <h1>${escapeHtml(state.profile.name)}, ¿cómo quieres explorar?</h1>
-          <p>Puedes vivir la historia desde una profesión o tomar decisiones sin conocer sus asociaciones hasta el final.</p>
+          <p>Una escena. Una decisión. Una consecuencia. Elige cómo quieres entrar a la historia.</p>
         </div>
         <div class="mode-grid">
           <button class="mode-card" type="button" data-mode="career">
             <span class="mode-number">Modo 01 · 3 retos</span>
             <h3>Vive una ingeniería</h3>
-            <p>Elige una carrera y resuelve tres dilemas desde esa profesión. Tus decisiones iniciales cambiarán lo que ocurre después.</p>
+            <p>Tres decisiones conectadas. Lo que construyas al inicio regresará cuando algo falle.</p>
           </button>
           <button class="mode-card" type="button" data-mode="discover">
             <span class="mode-number">Modo 02 · 5 retos</span>
             <h3>Descubre tu enfoque</h3>
-            <p>Elige qué te gustaría aportar en cinco situaciones. Las carreras relacionadas se revelarán al terminar.</p>
+            <p>Cinco decisiones rápidas. Las carreras relacionadas se revelan sólo al final.</p>
           </button>
         </div>
       </div>
@@ -709,7 +723,7 @@ function renderCareerSelect() {
         <div class="section-heading">
           <p class="eyebrow">Vive una ingeniería</p>
           <h1>Elige desde dónde tomarás las decisiones</h1>
-          <p>Cada ruta presenta tres dilemas conectados. No necesitas conocimientos previos: la aventura te mostrará el concepto después de elegir.</p>
+          <p>No necesitas saber ingeniería. Elige lo que harías y descubre el concepto después.</p>
         </div>
         <div class="career-grid">
           ${Object.entries(careers).map(([key, career]) => `
@@ -717,6 +731,7 @@ function renderCareerSelect() {
               <span class="career-code">${career.code}</span>
               <h3>${career.name}</h3>
               <p>${career.hook}</p>
+              <span class="card-go">Entrar <b aria-hidden="true">→</b></span>
             </button>`).join('')}
         </div>
       </div>
@@ -757,8 +772,16 @@ function renderPlay() {
   const memory = prior.length ? prior[prior.length - 1].title : '';
 
   app.innerHTML = `
-    <section class="screen game-screen">
+    <section class="screen game-screen phase-${state.phase}">
       <div class="game-bg" style="${sceneStyle(challenge.scene)}" aria-hidden="true"></div>
+      <div class="cinematic-fx" aria-hidden="true">
+        <span class="fx-fog"></span>
+        <span class="fx-scan"></span>
+        <span class="fx-spark spark-one"></span>
+        <span class="fx-spark spark-two"></span>
+        <span class="fx-spark spark-three"></span>
+      </div>
+      <div class="scene-avatar" aria-hidden="true">${avatarMarkup(state.profile.avatar)}</div>
       <div class="game-hud">
         <div class="player-chip">
           <div class="mini-avatar">${avatarMarkup(state.profile.avatar)}</div>
@@ -772,20 +795,23 @@ function renderPlay() {
 
       <div class="challenge-shell">
         <div class="scene-copy">
+          <div class="beat-strip"><span>Reto ${state.step + 1} / ${total}</span><i></i><b>${state.phase === 'choice' ? 'Decide' : 'Consecuencia'}</b></div>
           <p class="eyebrow">${challenge.kicker}</p>
           <h1>${challenge.title}</h1>
           <p>${challenge.story}</p>
-          ${memory && state.phase === 'choice' ? `<p><strong>Tu decisión anterior sigue activa:</strong> ${escapeHtml(memory)}.</p>` : ''}
+          ${memory && state.phase === 'choice' ? `<div class="memory-chip"><span aria-hidden="true">↻</span><strong>Sigue activo:</strong> ${escapeHtml(memory)}</div>` : ''}
           <p class="question">${challenge.question}</p>
         </div>
 
         ${state.phase === 'choice' ? `
           <div class="options-panel">
+            <div class="decision-header"><span>Elige una ruta</span><small>No hay una respuesta perfecta</small></div>
             <div class="options-grid ${options.length === 5 ? 'five' : ''}">
               ${options.map((option, index) => `
                 <button class="option-card" type="button" data-option="${option.id}">
                   <span class="option-letter">${String.fromCharCode(65 + index)}</span>
-                  <span><strong>${option.title || 'Tu acción'}</strong><p>${option.action}</p></span>
+                  <span class="option-copy"><strong>${option.title || capitalizeFirst(option.motivation) || 'Tu acción'}</strong><p>${option.action}</p></span>
+                  <span class="option-arrow" aria-hidden="true">→</span>
                 </button>`).join('')}
             </div>
           </div>` : renderConsequence(selected, challenge, total)}
@@ -798,27 +824,27 @@ function renderConsequence(option, challenge, total) {
   const memory = linkText(option);
   if (state.mode === 'discover') {
     return `
-      <div class="options-panel consequence-panel">
-        <div class="consequence-title"><span aria-hidden="true">✓</span> Decisión registrada</div>
-        <div class="consequence-grid">
-          <div class="consequence-item"><span>Elegiste</span><strong>${option.action}</strong></div>
-          <div class="consequence-item"><span>La historia cambia</span><strong>El equipo incorpora tu aportación y conserva una nueva posibilidad.</strong></div>
-          <div class="consequence-item"><span>Queda abierto</span><strong>La relación con una o más ingenierías se revelará al final.</strong></div>
+      <div class="options-panel consequence-panel" tabindex="-1">
+        <div class="impact-banner"><span>Decisión registrada</span><strong>La historia cambió</strong></div>
+        <div class="choice-echo">${option.action}</div>
+        <div class="impact-line">
+          <span aria-hidden="true">✦</span>
+          <p>El equipo incorpora tu aportación. La relación con las ingenierías se revelará al final.</p>
         </div>
-        <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi resultado' : 'Continuar'} <span aria-hidden="true">→</span></button></div>
+        <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi resultado' : 'Siguiente reto'} <span aria-hidden="true">→</span></button></div>
       </div>`;
   }
   return `
-    <div class="options-panel consequence-panel">
-      <div class="consequence-title"><span aria-hidden="true">✓</span> ${option.title}</div>
+    <div class="options-panel consequence-panel" tabindex="-1">
+      <div class="impact-banner"><span>El escenario respondió</span><strong>${option.title}</strong></div>
       <div class="consequence-grid">
         <div class="consequence-item"><span>Protegiste</span><strong>${option.protects}</strong></div>
         <div class="consequence-item"><span>A cambio</span><strong>${option.cost}</strong></div>
         <div class="consequence-item"><span>Queda activo</span><strong>${option.active}</strong></div>
       </div>
-      ${memory ? `<div class="concept-reveal"><strong>Tu decisión anterior intervino:</strong> ${memory}</div>` : ''}
-      <div class="concept-reveal"><strong>Lo que acabas de explorar:</strong> ${option.concept}</div>
-      <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi recorrido' : 'Continuar'} <span aria-hidden="true">→</span></button></div>
+      ${memory ? `<div class="memory-impact"><span aria-hidden="true">↻</span><p><strong>Tu decisión anterior intervino:</strong> ${memory}</p></div>` : ''}
+      <details class="concept-details"><summary>¿Qué habilidad acabas de usar?</summary><p>${option.concept}</p></details>
+      <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi recorrido' : 'Siguiente reto'} <span aria-hidden="true">→</span></button></div>
     </div>`;
 }
 
@@ -986,6 +1012,11 @@ function escapeHtml(value = '') {
 function asSentenceFragment(value = '') {
   const text = String(value).trim().replace(/[.!?]+$/, '');
   return text.charAt(0).toLowerCase() + text.slice(1);
+}
+
+function capitalizeFirst(value = '') {
+  const text = String(value).trim();
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
 render();
