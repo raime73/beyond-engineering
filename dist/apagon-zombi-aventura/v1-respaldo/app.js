@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'apagonZombiAdventureV1';
+const SOUND_KEY = 'apagonZombiSoundV1';
 
 const scenes = {
   library: { x: '0%', y: '0%' },
@@ -7,6 +8,79 @@ const scenes = {
   avenue: { x: '0%', y: '100%' },
   passage: { x: '50%', y: '100%' },
   refuge: { x: '100%', y: '100%' }
+};
+
+const plainOptionTitles = {
+  trace: 'Ordenar qué información sí es confiable',
+  mesh: 'Hacer que los celulares se pasen mensajes',
+  scenarios: 'Preparar un plan para cada posibilidad',
+  relay: 'Guardar mensajes hasta recuperar contacto',
+  quorum: 'Esperar tres confirmaciones antes de cambiar la ruta',
+  autonomy: 'Dar reglas para actuar aunque no haya señal',
+  consistency: 'Cambiar a todos al mismo plan',
+  adaptation: 'Dejar que cada pareja se adapte',
+  explain: 'Comparar las opciones antes de decidir',
+  network: 'Preparar dos lugares para cambiar de ruta',
+  bridge: 'Intentar el puente con un punto de regreso',
+  segments: 'Avanzar sólo por tramos comprobados',
+  scope: 'Averiguar cuánto bloquea la barrera',
+  detour: 'Tomar de inmediato el desvío',
+  temporary: 'Marcar un paso temporal y cancelarlo si falla',
+  'critical-light': 'Iluminar sólo los puntos peligrosos',
+  exterior: 'Salir al recorrido exterior',
+  test: 'Probar únicamente el primer tramo',
+  lean: 'Salir antes con sólo lo indispensable',
+  backup: 'Dar un suplente a cada tarea',
+  flow: 'Preparar todo en estaciones',
+  'protect-arrival': 'Pausar tareas para proteger la llegada',
+  balance: 'Repartir de nuevo peso y responsabilidades',
+  buffer: 'Gastar reservas para no cambiar todavía',
+  streams: 'Separar la entrada en dos filas',
+  priority: 'Atender primero los casos más urgentes',
+  cells: 'Que cada equipo atienda de principio a fin',
+  beacons: 'Repartir señales de luz y vibración',
+  power: 'Guardar energía para las funciones críticas',
+  rover: 'Enviar un pequeño explorador',
+  manual: 'Pasar el sistema a control manual',
+  diagnose: 'Probar cada parte hasta encontrar la falla',
+  degraded: 'Seguir funcionando con menos capacidades',
+  islands: 'Encender luz sólo cuando el grupo se acerca',
+  'redundant-signals': 'Enviar cada aviso de dos maneras',
+  probe: 'Explorar un tramo antes de avanzar',
+  chain: 'Rastrear de dónde vino cada muestra',
+  comparison: 'Comparar el tanque con dos referencias',
+  screening: 'Buscar una señal rápida de alerta',
+  identity: 'Comprobar que cada resultado sea de la muestra correcta',
+  decisive: 'Hacer la comparación que separa dos causas',
+  method: 'Comprobar si la prueba funcionó bien',
+  isolate: 'Mantener el tanque fuera del consumo',
+  source: 'Conseguir agua de origen comprobable',
+  threshold: 'Definir qué evidencia falta para autorizarlo',
+  'd1-itc': 'Separar lo confirmado de los rumores',
+  'd1-civil': 'Marcar dónde cambiar de ruta',
+  'd1-industrial': 'Organizar tareas, tiempos y responsables',
+  'd1-mecatronica': 'Crear señales que funcionen sin internet',
+  'd1-biotec': 'Registrar el origen y estado del agua',
+  'd2-itc': 'Comparar versiones y explicar qué cambia',
+  'd2-civil': 'Revisar si existe otra ruta',
+  'd2-industrial': 'Detectar qué tarea atrasa al equipo',
+  'd2-mecatronica': 'Probar el prototipo para encontrar la falla',
+  'd2-biotec': 'Investigar por qué dos datos se contradicen',
+  'd3-itc': 'Guardar mensajes hasta recuperar contacto',
+  'd3-civil': 'Conservar dos posibles desvíos',
+  'd3-industrial': 'Reforzar la tarea que define la llegada',
+  'd3-mecatronica': 'Mantener sólo la función esencial',
+  'd3-biotec': 'Separar lo seguro de lo que sigue en duda',
+  'd4-itc': 'Actualizar el mapa sin ocultar contradicciones',
+  'd4-civil': 'Usar los puntos peligrosos para decidir dónde actuar',
+  'd4-industrial': 'Cambiar el plan cuando cambien los recursos',
+  'd4-mecatronica': 'Convertir una instrucción en luz o vibración',
+  'd4-biotec': 'Asignar recursos según la evidencia disponible',
+  'd5-itc': 'Crear un sistema de avisos confiables',
+  'd5-civil': 'Reorganizar accesos cuando una zona cierre',
+  'd5-industrial': 'Coordinar personas, capacidad y suministros',
+  'd5-mecatronica': 'Construir una estación que responda al entorno',
+  'd5-biotec': 'Rastrear riesgos invisibles con evidencia'
 };
 
 const avatars = [
@@ -431,8 +505,11 @@ const defaultState = () => ({
 
 const app = document.querySelector('#app');
 const toast = document.querySelector('[data-toast]');
+const soundToggle = document.querySelector('[data-sound-toggle]');
 let toastTimer;
 let state = loadState();
+let soundEnabled = localStorage.getItem(SOUND_KEY) === 'on';
+let audioContext;
 
 function loadState() {
   try {
@@ -452,6 +529,59 @@ function announce(message) {
   toast.classList.add('visible');
   window.clearTimeout(toastTimer);
   toastTimer = window.setTimeout(() => toast.classList.remove('visible'), 2400);
+}
+
+function displayOptionTitle(option = {}) {
+  return plainOptionTitles[option.id] || option.title || capitalizeFirst(option.motivation) || 'Tu acción';
+}
+
+function updateSoundToggle() {
+  if (!soundToggle) return;
+  soundToggle.classList.toggle('active', soundEnabled);
+  soundToggle.setAttribute('aria-pressed', String(soundEnabled));
+  soundToggle.setAttribute('aria-label', soundEnabled ? 'Silenciar efectos de sonido' : 'Activar efectos de sonido');
+  const status = soundToggle.querySelector('small');
+  if (status) status.textContent = soundEnabled ? 'ON' : 'OFF';
+}
+
+function ensureAudioContext() {
+  if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioContext.state === 'suspended') audioContext.resume();
+  return audioContext;
+}
+
+function playSound(cue) {
+  if (!soundEnabled) return;
+  const context = ensureAudioContext();
+  const now = context.currentTime;
+  const gain = context.createGain();
+  const oscillator = context.createOscillator();
+  const settings = {
+    activate: [520, 760, 0.14, 'sine'],
+    choice: [150, 68, 0.48, 'sawtooth'],
+    next: [230, 520, 0.22, 'triangle']
+  }[cue] || [420, 520, 0.08, 'sine'];
+  oscillator.type = settings[3];
+  oscillator.frequency.setValueAtTime(settings[0], now);
+  oscillator.frequency.exponentialRampToValueAtTime(settings[1], now + settings[2]);
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(cue === 'choice' ? 0.16 : 0.1, now + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + settings[2]);
+  oscillator.connect(gain).connect(context.destination);
+  oscillator.start(now);
+  oscillator.stop(now + settings[2] + 0.03);
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  localStorage.setItem(SOUND_KEY, soundEnabled ? 'on' : 'off');
+  updateSoundToggle();
+  if (soundEnabled) {
+    playSound('activate');
+    announce('Efectos de sonido activados.');
+  } else {
+    announce('Efectos de sonido silenciados.');
+  }
 }
 
 function clamp(value) { return Math.max(0, Math.min(100, value)); }
@@ -549,7 +679,7 @@ function chooseOption(optionId) {
   const choice = {
     challengeId: challenge.id,
     optionId: option.id,
-    title: option.title || option.action,
+    title: displayOptionTitle(option),
     action: option.action,
     state: option.state || null,
     career: option.career || state.career,
@@ -572,6 +702,7 @@ function chooseOption(optionId) {
 
   state.phase = 'consequence';
   saveState();
+  playSound('choice');
   render();
 }
 
@@ -585,6 +716,7 @@ function continueGame() {
     state.phase = 'choice';
   }
   saveState();
+  playSound('next');
   render();
 }
 
@@ -805,18 +937,37 @@ function renderPlay() {
 
         ${state.phase === 'choice' ? `
           <div class="options-panel">
-            <div class="decision-header"><span>Elige una ruta</span><small>No hay una respuesta perfecta</small></div>
+            <div class="decision-header"><span>¿Qué haces ahora?</span><small>El reloj no se detiene. Tu decisión cambia lo que ocurre.</small></div>
             <div class="options-grid ${options.length === 5 ? 'five' : ''}">
               ${options.map((option, index) => `
                 <button class="option-card" type="button" data-option="${option.id}">
                   <span class="option-letter">${String.fromCharCode(65 + index)}</span>
-                  <span class="option-copy"><strong>${option.title || capitalizeFirst(option.motivation) || 'Tu acción'}</strong><p>${option.action}</p></span>
+                  <span class="option-copy"><strong>${displayOptionTitle(option)}</strong><p>${option.action}</p></span>
                   <span class="option-arrow" aria-hidden="true">→</span>
                 </button>`).join('')}
             </div>
           </div>` : renderConsequence(selected, challenge, total)}
       </div>
     </section>`;
+}
+
+function transitionScene() {
+  const challenges = state.mode === 'career' ? careers[state.career].challenges : discoveryRounds;
+  return challenges[state.step + 1]?.scene || 'refuge';
+}
+
+function transitionVideo() {
+  const scene = transitionScene();
+  const autoplay = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finalMoment = (state.mode === 'career' ? state.step === 2 : state.step === 4);
+  return `
+    <figure class="transition-film">
+      <video ${autoplay ? 'autoplay' : ''} muted playsinline loop preload="metadata" aria-label="Transición hacia la siguiente escena">
+        <source src="assets/clips/${scene}.mp4" type="video/mp4" />
+      </video>
+      <figcaption><span>${finalMoment ? 'Última transmisión' : 'La ciudad cambia'}</span><strong>${finalMoment ? 'El refugio está por cerrar' : 'El equipo avanza, pero el peligro también'}</strong></figcaption>
+      <i aria-hidden="true"></i>
+    </figure>`;
 }
 
 function renderConsequence(option, challenge, total) {
@@ -831,12 +982,13 @@ function renderConsequence(option, challenge, total) {
           <span aria-hidden="true">✦</span>
           <p>El equipo incorpora tu aportación. La relación con las ingenierías se revelará al final.</p>
         </div>
+        ${transitionVideo()}
         <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi resultado' : 'Siguiente reto'} <span aria-hidden="true">→</span></button></div>
       </div>`;
   }
   return `
     <div class="options-panel consequence-panel" tabindex="-1">
-      <div class="impact-banner"><span>El escenario respondió</span><strong>${option.title}</strong></div>
+      <div class="impact-banner"><span>El escenario respondió</span><strong>${displayOptionTitle(option)}</strong></div>
       <div class="consequence-grid">
         <div class="consequence-item"><span>Protegiste</span><strong>${option.protects}</strong></div>
         <div class="consequence-item"><span>A cambio</span><strong>${option.cost}</strong></div>
@@ -844,6 +996,7 @@ function renderConsequence(option, challenge, total) {
       </div>
       ${memory ? `<div class="memory-impact"><span aria-hidden="true">↻</span><p><strong>Tu decisión anterior intervino:</strong> ${memory}</p></div>` : ''}
       <details class="concept-details"><summary>¿Qué habilidad acabas de usar?</summary><p>${option.concept}</p></details>
+      ${transitionVideo()}
       <div class="continue-row"><button class="primary-button" type="button" data-action="continue">${state.step === total - 1 ? 'Ver mi recorrido' : 'Siguiente reto'} <span aria-hidden="true">→</span></button></div>
     </div>`;
 }
@@ -878,7 +1031,7 @@ function renderCareerResult() {
           ${chosen.map(({ challenge, option }, index) => `
             <article class="journey-item">
               <span class="journey-number">${index + 1}</span>
-              <div><h3>${option.title}</h3><p>${challenge.title}: ${option.protects} ${option.cost}</p></div>
+              <div><h3>${displayOptionTitle(option)}</h3><p>${challenge.title}: ${option.protects} ${option.cost}</p></div>
             </article>`).join('')}
         </div>
 
@@ -958,6 +1111,8 @@ function renderDiscoveryResult() {
 }
 
 function bindCommonActions() {
+  if (soundToggle) soundToggle.onclick = toggleSound;
+  updateSoundToggle();
   document.querySelectorAll('[data-home-link]').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); goHome(); }));
   document.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => {
     const action = button.dataset.action;

@@ -121,6 +121,23 @@ input:focus-visible {
 .event-link { color: var(--muted); }
 .secondary-link:hover, .event-link:hover { color: var(--paper); }
 
+.sound-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.42rem 0.62rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+}
+
+.sound-toggle b { font-size: 0.72rem; }
+.sound-toggle small { color: var(--amber); font-size: 0.58rem; font-weight: 800; }
+.sound-toggle.active { color: var(--paper); border-color: rgba(85, 231, 224, 0.5); background: rgba(85, 231, 224, 0.1); }
+.sound-toggle.active span { color: var(--cyan); text-shadow: 0 0 12px var(--cyan); }
+
 #app { min-height: 100vh; }
 
 .screen {
@@ -864,6 +881,68 @@ h1, h2 {
 .impact-line p,
 .memory-impact p { margin: 0; font-size: 0.84rem; line-height: 1.45; }
 
+.transition-film {
+  position: relative;
+  overflow: hidden;
+  min-height: 168px;
+  margin: 0.9rem 0 0;
+  border: 1px solid rgba(240, 163, 59, 0.38);
+  border-radius: 14px;
+  background: #03090a;
+}
+
+.transition-film video {
+  display: block;
+  width: 100%;
+  height: 188px;
+  object-fit: cover;
+  filter: brightness(0.63) saturate(0.82) contrast(1.12);
+}
+
+.transition-film::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(2, 7, 8, 0.9), rgba(2, 7, 8, 0.08) 75%), linear-gradient(0deg, rgba(2, 7, 8, 0.65), transparent 55%);
+  pointer-events: none;
+}
+
+.transition-film figcaption {
+  position: absolute;
+  z-index: 2;
+  left: clamp(0.85rem, 3vw, 1.45rem);
+  bottom: 1rem;
+  display: grid;
+  gap: 0.2rem;
+  width: min(78%, 440px);
+}
+
+.transition-film figcaption span {
+  color: var(--amber-soft);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.transition-film figcaption strong {
+  font-family: "Archivo Black", sans-serif;
+  font-size: clamp(1rem, 2.4vw, 1.45rem);
+  line-height: 1.02;
+}
+
+.transition-film i {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: -10%;
+  width: 2px;
+  background: rgba(85, 231, 224, 0.7);
+  box-shadow: 0 0 16px var(--cyan);
+}
+
 .concept-details {
   margin-top: 0.8rem;
   border: 1px solid var(--line);
@@ -1013,6 +1092,7 @@ h1, h2 {
   .brand { font-size: 1rem; }
   .event-link { display: none; }
   .secondary-link { font-size: 0.72rem; }
+  .sound-toggle b { display: none; }
   .screen { padding: 78px 0.9rem 1.2rem; }
   .hero-screen { min-height: 100svh; }
   .hero-title { font-size: clamp(3.35rem, 18vw, 5rem); }
@@ -1048,6 +1128,8 @@ h1, h2 {
 
 @media (max-width: 430px) {
   .secondary-link { max-width: 105px; text-align: right; line-height: 1.1; }
+  .sound-toggle { padding-inline: 0.52rem; }
+  .sound-toggle small { display: none; }
   .hero-content { padding-bottom: 0.5rem; }
   .story-copy { font-size: 0.95rem; line-height: 1.55; }
   .scenario-strip div { padding: 0.68rem 0.72rem; }
@@ -1090,6 +1172,7 @@ h1, h2 {
   .phase-consequence .game-bg { animation: decision-shot 1100ms ease-out both, scene-pan 16s 1100ms ease-in-out infinite alternate; }
   .impact-banner { animation: impact-pop 420ms cubic-bezier(.15,.9,.2,1.2) both; }
   .impact-banner::after { animation: shine 1.2s 180ms ease-out both; }
+  .transition-film i { animation: film-scan 3s linear infinite; }
   .consequence-item { animation: card-rise 360ms 180ms ease both; }
   .consequence-item:nth-child(2) { animation-delay: 280ms; }
   .consequence-item:nth-child(3) { animation-delay: 380ms; }
@@ -1110,6 +1193,7 @@ h1, h2 {
 @keyframes decision-shot { 0% { filter: brightness(1.8) saturate(.4); transform: scale(1.14); } 100% { filter: none; transform: scale(1.05); } }
 @keyframes impact-pop { from { opacity: 0; transform: scale(.94) translateY(12px); } }
 @keyframes shine { from { transform: translateX(-55%); } to { transform: translateX(55%); } }
+@keyframes film-scan { to { left: 110%; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; }
