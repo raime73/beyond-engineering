@@ -203,6 +203,11 @@ h2 { font-size: clamp(2.7rem, 6vw, 6rem); line-height: .96; letter-spacing: -.06
 .career-contact strong { font-size: 1rem; }
 .career-contact a, .guidance-contact a { width: fit-content; max-width: 100%; overflow-wrap: anywhere; text-underline-offset: .2em; font-weight: 750; }
 .career-contact a:hover, .guidance-contact a:hover { text-decoration-thickness: 2px; }
+.contact-qr { display: inline-flex; flex-direction: column; align-items: center; gap: .2rem; margin-top: .75rem; color: var(--ink); font-size: .7rem; font-weight: 850; text-decoration: none; }
+.contact-qr[hidden] { display: none; }
+.contact-qr img { width: 96px; height: auto; aspect-ratio: 569 / 532; object-fit: contain; border: 1px solid var(--ink); background: var(--white); }
+.contact-qr span { text-decoration: underline; text-underline-offset: .2em; }
+.contact-qr:hover span { text-decoration-thickness: 2px; }
 .career-guidance { max-width: var(--max); margin: 2rem auto 0; padding: clamp(1.5rem, 3vw, 3rem); border: 1px solid var(--ink); display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(1.5rem, 4vw, 4rem); }
 .career-guidance-intro h3 { margin: .5rem 0; font-size: clamp(2rem, 3.5vw, 3.4rem); line-height: 1; letter-spacing: -.05em; }
 .career-guidance-intro > p:last-child { max-width: 32rem; margin-bottom: 0; }

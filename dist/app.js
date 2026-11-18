@@ -88,7 +88,7 @@ const careers = {
     title: 'Ingeniería en Tecnologías Computacionales',
     description: 'Diseña software, sistemas e inteligencia digital capaces de cambiar la forma en que vivimos y trabajamos.',
     topics: ['Software', 'Datos e IA', 'Productos digitales'],
-    contact: { name: 'Raime Alejandro Bustos Gardea', email: 'raime.bustos@tec.mx' }
+    contact: { name: 'Raime Alejandro Bustos Gardea', email: 'raime.bustos@tec.mx', whatsapp: 'https://wa.me/qr/WESFU3YXVUSKD1' }
   }
 };
 
@@ -108,6 +108,9 @@ document.querySelectorAll('[data-career]').forEach((button) => {
     const contactEmail = document.querySelector('[data-career-contact-email]');
     contactEmail.textContent = career.contact.email;
     contactEmail.href = `mailto:${career.contact.email}`;
+    const contactQr = document.querySelector('[data-career-qr]');
+    contactQr.hidden = !career.contact.whatsapp;
+    if (career.contact.whatsapp) contactQr.href = career.contact.whatsapp;
   });
 });
 
