@@ -55,35 +55,40 @@ const careers = {
     question: '¿Y si pudieras diseñar soluciones usando la vida?',
     title: 'Ingeniería en Biotecnología',
     description: 'Conecta biología, química y tecnología para trabajar en salud, alimentos, ambiente y procesos sostenibles.',
-    topics: ['Bioprocesos', 'Innovación sostenible', 'Ciencia de laboratorio']
+    topics: ['Bioprocesos', 'Innovación sostenible', 'Ciencia de laboratorio'],
+    contact: { name: 'Eloisa Alin Villegas Lugo', email: 'eloisa.villegas@tec.mx' }
   },
   civil: {
     symbol: '∆',
     question: '¿Y si tus ideas pudieran sostener ciudades enteras?',
     title: 'Ingeniería Civil',
     description: 'Imagina, diseña y construye infraestructura segura y sostenible para conectar comunidades y mejorar su entorno.',
-    topics: ['Estructuras', 'Ciudades sostenibles', 'Gestión de obra']
+    topics: ['Estructuras', 'Ciudades sostenibles', 'Gestión de obra'],
+    contact: { name: 'Silvia Eugenia Prieto Loya', email: 'silvia.prieto@tec.mx' }
   },
   industrial: {
     symbol: '↗',
     question: '¿Y si pudieras hacer que todo funcione mejor?',
     title: 'Ingeniería Industrial y de Sistemas',
     description: 'Integra personas, datos y procesos para resolver problemas complejos y transformar organizaciones.',
-    topics: ['Optimización', 'Analítica', 'Innovación de procesos']
+    topics: ['Optimización', 'Analítica', 'Innovación de procesos'],
+    contact: { name: 'Jenaro Nosedal Sánchez', email: 'jenaro.nosedal@tec.mx' }
   },
   mecatronica: {
     symbol: '⚙',
     question: '¿Y si una máquina pudiera ejecutar tu idea?',
     title: 'Ingeniería Mecatrónica',
     description: 'Combina mecánica, electrónica, control y programación para crear sistemas inteligentes y automatizados.',
-    topics: ['Robótica', 'Automatización', 'Diseño inteligente']
+    topics: ['Robótica', 'Automatización', 'Diseño inteligente'],
+    contact: { name: 'Aldo Ariel Cortéz Pérez', email: 'ariel.cortesperez@tec.mx' }
   },
   computacion: {
     symbol: '</>',
     question: '¿Y si pudieras programar la próxima gran solución?',
     title: 'Ingeniería en Tecnologías Computacionales',
     description: 'Diseña software, sistemas e inteligencia digital capaces de cambiar la forma en que vivimos y trabajamos.',
-    topics: ['Software', 'Datos e IA', 'Productos digitales']
+    topics: ['Software', 'Datos e IA', 'Productos digitales'],
+    contact: { name: 'Raime Alejandro Bustos Gardea', email: 'raime.bustos@tec.mx' }
   }
 };
 
@@ -99,6 +104,10 @@ document.querySelectorAll('[data-career]').forEach((button) => {
     document.querySelector('[data-career-title]').textContent = career.title;
     document.querySelector('[data-career-description]').textContent = career.description;
     document.querySelector('[data-career-topics]').innerHTML = career.topics.map((topic) => `<li>${topic}</li>`).join('');
+    document.querySelector('[data-career-contact-name]').textContent = career.contact.name;
+    const contactEmail = document.querySelector('[data-career-contact-email]');
+    contactEmail.textContent = career.contact.email;
+    contactEmail.href = `mailto:${career.contact.email}`;
   });
 });
 
