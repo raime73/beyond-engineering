@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explorador de Ingenierías · Campus Chihuahua</title>
+<style>
+  :root{
+    --tec:#0039A6; --tec-osc:#0B1F4D; --fondo:#F3F5FB; --tarjeta:#FFFFFF;
+    --texto:#1B2333; --suave:#5B6478; --borde:#DDE2EE;
+    --IMT:#E8611A; --ITC:#7B3FE4; --IBT:#16955F; --IC:#C27C0E; --IIS:#0B8F9B;
+    --radio:18px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:var(--fondo); color:var(--texto); line-height:1.5; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(120deg,var(--tec-osc),var(--tec));
+    color:#fff; padding:14px 20px; display:flex; align-items:center; gap:14px;
+  }
+  .logo-slot{
+    width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.14);
+    display:grid;place-items:center;font-weight:800;letter-spacing:.5px;font-size:13px;flex:none;
+  }
+  .logo-slot img{max-width:100%;max-height:100%}
+  header .t1{font-weight:800;font-size:17px;line-height:1.2}
+  header .t2{font-size:13px;opacity:.85}
+  .back-home{margin-left:auto;flex:none;padding:9px 14px;border:1px solid rgba(255,255,255,.7);border-radius:999px;color:#fff;text-decoration:none;font-size:14px;font-weight:700}
+  .back-home:hover,.back-home:focus-visible{background:rgba(255,255,255,.15)}
+  .franja{display:flex;height:5px}
+  .franja span{flex:1}
+  main{max-width:780px;margin:0 auto;padding:28px 16px 60px}
+  .card{background:var(--tarjeta);border-radius:var(--radio);padding:28px;box-shadow:0 6px 24px rgba(11,31,77,.08)}
+  h1{font-size:28px;line-height:1.2;margin:0 0 14px;color:var(--tec-osc)}
+  h2{font-size:22px;line-height:1.25;margin:0 0 10px;color:var(--tec-osc)}
+  h3{font-size:16px;margin:18px 0 6px;color:var(--tec-osc)}
+  p{margin:0 0 12px}
+  .muted{color:var(--suave)}
+  .btn{
+    appearance:none;border:0;border-radius:999px;padding:14px 26px;font-size:16px;font-weight:700;
+    cursor:pointer;background:var(--tec);color:#fff;transition:transform .08s, box-shadow .15s, background .15s;
+    font-family:inherit;
+  }
+  .btn:hover{box-shadow:0 6px 16px rgba(0,57,166,.3)}
+  .btn:active{transform:scale(.98)}
+  .btn:disabled{background:#AAB3C7;cursor:not-allowed;box-shadow:none}
+  .btn.sec{background:#fff;color:var(--tec);border:2px solid var(--tec)}
+  .btn.link{background:none;color:var(--suave);padding:10px 4px;font-weight:600}
+  .acciones{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:22px}
+  .aviso{border-left:6px solid var(--tec);}
+  .aviso .icono{font-size:34px;margin-bottom:6px}
+  .aviso ul{padding-left:20px;margin:0 0 12px}
+  .aviso li{margin-bottom:6px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+  .chip{padding:6px 12px;border-radius:999px;font-size:13px;font-weight:700;color:#fff}
+  /* Progreso */
+  .progreso{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--suave);margin-bottom:8px;font-weight:600}
+  .barra{height:8px;border-radius:99px;background:#E3E8F3;overflow:hidden;margin-bottom:22px}
+  .barra i{display:block;height:100%;background:linear-gradient(90deg,var(--IMT),var(--ITC),var(--IBT),var(--IC),var(--IIS));transition:width .3s}
+  .pregunta{font-size:23px;font-weight:800;line-height:1.3;color:var(--tec-osc);margin:0 0 6px}
+  .ayuda{color:var(--suave);margin-bottom:18px;font-size:15px}
+  .opciones{display:grid;gap:12px}
+  .opcion{
+    display:flex;gap:14px;align-items:center;text-align:left;width:100%;
+    background:#fff;border:2px solid var(--borde);border-radius:14px;padding:16px 18px;
+    font-size:16px;font-family:inherit;color:var(--texto);cursor:pointer;transition:border-color .12s,background .12s,transform .08s;
+  }
+  .opcion:hover{border-color:#9DB0DA;background:#F7F9FF}
+  .opcion:active{transform:scale(.99)}
+  .opcion .emo{font-size:26px;flex:none;width:36px;text-align:center}
+  .opcion.sel{border-color:var(--tec);background:#EAF0FF;box-shadow:inset 0 0 0 1px var(--tec)}
+  .materias{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+  .escala{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .escala .opcion{flex-direction:column;justify-content:center;text-align:center;padding:16px 8px;gap:8px;font-size:14px;font-weight:600}
+  .escala .opcion .emo{width:auto;font-size:28px}
+  .contador{font-size:14px;color:var(--suave);margin-top:10px;font-weight:600}
+  /* Resultados */
+  .top{border-radius:var(--radio);overflow:hidden;background:#fff;box-shadow:0 8px 28px rgba(11,31,77,.12);margin-bottom:22px}
+  .top-cab{padding:24px 26px;color:#fff}
+  .top-cab .eti{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;opacity:.9}
+  .top-cab .nom{font-size:26px;font-weight:800;line-height:1.2;margin:4px 0}
+  .top-cab .lema{font-style:italic;opacity:.95}
+  .top-cab .pct{font-size:44px;font-weight:900;line-height:1}
+  .top-cab .fila{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+  .top-cuerpo{padding:22px 26px}
+  .porque{background:#F6F8FD;border-radius:12px;padding:14px 18px;margin-bottom:6px}
+  .porque ul{margin:6px 0 0;padding-left:20px}
+  .porque li{margin-bottom:4px}
+  .ficha ul{margin:4px 0 0;padding-left:20px}
+  .ficha li{margin-bottom:3px}
+  .campus{border-radius:14px;padding:16px 18px;margin:18px 0 4px;border:2px solid;background:#FAFBFE}
+  .campus h3{margin:0 0 10px;font-size:17px}
+  .campus .cpt{margin:0 0 8px;font-size:15px}
+  .campus .cpt:last-child{margin-bottom:0}
+  .general{border-top:6px solid var(--tec)}
+  .general ul{margin:6px 0 0;padding-left:20px}
+  .general li{margin-bottom:8px}
+  @media print{.campus{-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}}
+  .meta{display:inline-block;font-size:13px;font-weight:700;background:#EEF2FA;color:var(--tec-osc);border-radius:99px;padding:5px 12px;margin-top:14px}
+  .pie-ficha{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+  .pie-ficha .meta{margin-top:0}
+  .btn-onepage{display:inline-flex;align-items:center;gap:6px;border:2px solid;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;text-decoration:none;background:#fff;transition:background .15s}
+  .btn-onepage:hover{background:#F4F6FB}
+  .seccion{margin:26px 0 12px;font-size:19px;font-weight:800;color:var(--tec-osc)}
+  .grafica{display:grid;gap:12px}
+  .gfila{display:block}
+  .gcab{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px}
+  .gfila .sig{font-weight:800}
+  .gfila .sig .muted{font-weight:600}
+  .gpista{height:22px;background:#EDF0F7;border-radius:99px;overflow:hidden}
+  .gpista i{display:block;height:100%;border-radius:99px;transition:width .8s ease}
+  .gfila .val{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+  details.otro{background:#fff;border-radius:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(11,31,77,.06);border-left:6px solid}
+  details.otro summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:14px}
+  details.otro summary::-webkit-details-marker{display:none}
+  details.otro summary .n{font-weight:800;flex:1}
+  details.otro summary .p{font-weight:900;font-size:18px}
+  details.otro summary .flecha{transition:transform .2s;color:var(--suave)}
+  details.otro[open] summary .flecha{transform:rotate(90deg)}
+  details.otro .det{padding:0 20px 18px}
+  .nota{background:#FFF8E6;border:1px solid #F0D99A;border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:15px}
+  .solo-impresion{display:none}
+  footer{max-width:780px;margin:0 auto;padding:0 16px 30px;font-size:12px;color:var(--suave);text-align:center}
+  .fade{animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (max-width:560px){
+    header{flex-wrap:wrap}
+    .back-home{margin-left:56px}
+    .card{padding:22px 18px}
+    h1{font-size:24px}
+    .pregunta{font-size:20px}
+    .escala{grid-template-columns:1fr}
+    .escala .opcion{flex-direction:row;justify-content:flex-start;text-align:left;font-size:15px}
+    .top-cab,.top-cuerpo{padding:20px}
+    .top-cab .pct{font-size:36px}
+  }
+  @media print{
+    @page{margin:14mm}
+    body{background:#fff}
+    header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .no-imprimir,footer{display:none!important}
+    .solo-impresion{display:block}
+    main{padding:12px 0}
+    .top,details.otro,.card{box-shadow:none;border:1px solid #ccd}
+    .top-cab,.gpista i,.chip{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    details.otro{break-inside:avoid}
+    details.otro summary .flecha{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <!-- Para usar el logo oficial: reemplaza "EIC" por <img src="data:image/png;base64,..." alt="EIC"> -->
+  <div class="logo-slot">EIC</div>
+  <div>
+    <div class="t1">Explorador de Ingenierías</div>
+    <div class="t2">Escuela de Ingeniería y Ciencias · Tec de Monterrey, Campus Chihuahua</div>
+  </div>
+  <a class="back-home no-imprimir" href="../">Volver a Beyond Engineering</a>
+</header>
+<div class="franja"><span style="background:var(--IMT)"></span><span style="background:var(--ITC)"></span><span style="background:var(--IBT)"></span><span style="background:var(--IC)"></span><span style="background:var(--IIS)"></span></div>
+
+<main id="app"></main>
+
+<footer>Herramienta informativa de la EIC · Campus Chihuahua. No es un test vocacional ni sustituye la orientación profesional. · Contenido: versión octubre 2026</footer>
+
+<script>
+/* =====================================================================
+   CONTENIDO EDITABLE
+   ---------------------------------------------------------------------
+   Todo el texto de los programas y las preguntas vive aquí.
+   - "chihuahua": puntos propios de estudiar el programa en Campus
+     Chihuahua ({t: título, d: detalle}). Si la lista está vacía []
+     la sección no se muestra.
+   - POR_QUE_CHIHUAHUA: bloque general que aparece una vez en resultados.
+   ===================================================================== */
+
+const PROGRAMAS = {
+  IMT: {
+    nombre: "Ingeniería en Mecatrónica",
+    onepage: "https://tecmx-my.sharepoint.com/:b:/r/personal/manuel_valencia_tec_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras%2FOnePage%20Mecatronica%2Epdf&parent=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras&share=cQoYWQQeNi3jSZJafaRb8WEOEgUCRGro3ktNJu6iQjIyeVhjfg",
+    color: "var(--IMT)",
+    lema: "Diseñas, integras y automatizas el futuro.",
+    descripcion: "Combinas mecánica, electrónica, control y programación para diseñar y construir máquinas, robots y sistemas automáticos inteligentes.",
+    teInteresaSi: "te gusta armar y desarmar cosas, entender cómo funcionan las máquinas, la robótica y la automatización, y combinar el trabajo con las manos con la programación.",
+    afinidades: ["Física", "Matemáticas", "Programación", "Trabajo en equipos multidisciplinarios"],
+    aprenderas: ["Sistemas de control", "Microcontroladores", "Robótica industrial", "Redes industriales", "Prototipado rápido y sistemas ciberfísicos"],
+    areas: ["Automatización industrial", "Robótica", "Sistemas automotrices y aeronáuticos", "Industria 4.0"],
+    trabajo: ["Automatización de líneas de producción y manufactura", "Desarrollo de tecnología", "Consultoría especializada", "Centros de investigación y desarrollo"],
+    semestres: 8,
+    chihuahua: [
+      {t:"Certificación garantizada", d:"El 100% de los egresados se certifica en diseño mecánico con SolidWorks y tiene acceso a 17 certificaciones más."},
+      {t:"Retos que dejan huella", d:"Invernaderos automatizados para escuelas de la región (5.º semestre), automatización de procesos con la industria local (6.º) y drones con inteligencia artificial para reforestar la sierra y monitorear minas y plagas (8.º)."},
+      {t:"Concursos", d:"1.er lugar en el concurso de robótica colaborativa COBOTICA, 2.º lugar en vehículos GRAVITY, Tecdron Championship y un hackatón anual de la carrera."},
+      {t:"Empresas con las que trabajarás", d:"Ford, Safran, Textron, Jabil, Siemens, Dassault Systèmes, Heineken y JMAS, entre otras."},
+      {t:"Internacional", d:"59% de los alumnos de mecatrónica hace intercambio. Hay doble titulación con 17 universidades en Alemania y 2 en Francia."}
+    ]
+  },
+  ITC: {
+    nombre: "Ingeniería en Tecnologías Computacionales",
+    onepage: "https://tecmx-my.sharepoint.com/:b:/r/personal/manuel_valencia_tec_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras%2FOnePage%20TecComputacionales%2Epdf&parent=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras&share=cQoZkTAIHlsmS6DbsTdJQdv7EgUC1LcaYWaCmh1Td%5FnumH9kNA",
+    color: "var(--ITC)",
+    lema: "Diseña sistemas inteligentes que revolucionen al mundo.",
+    descripcion: "Diseñas y desarrollas software, inteligencia artificial, infraestructura en la nube y sistemas seguros: la tecnología que hace funcionar a hospitales, bancos, fábricas, gobiernos y las apps que usan millones de personas.",
+    teInteresaSi: "disfrutas los retos de lógica, te intriga cómo funcionan por dentro las apps, la IA o internet, o te imaginas creando programas y soluciones que integren la tecnología. No necesitas haber programado antes: lo aprendes en la carrera.",
+    afinidades: ["Pensamiento lógico y analítico", "Resolución de problemas", "Matemáticas", "Curiosidad por la tecnología y la innovación", "Trabajo en equipo"],
+    aprenderas: ["Algoritmos computacionales eficientes", "Ingeniería de software con estándares de calidad", "Inteligencia artificial y ciencia de datos", "Ciberseguridad e infraestructura computacional", "Redes y cómputo en la nube", "Desarrollo web y móvil", "Gráficas computacionales y videojuegos"],
+    areas: ["Inteligencia artificial y ciencia de datos", "Seguridad y redes computacionales", "Gráficas computacionales y videojuegos"],
+    trabajo: ["Diseño y desarrollo de software para resolver una infinidad de problemas", "Diseño e implementación de inteligencia artificial", "Consultoría en tecnologías computacionales y seguridad de la información", "Aplicaciones con realidad virtual y aumentada", "Investigación en nuevas tecnologías"],
+    semestres: 8,
+    chihuahua: [
+      {t:"Alta demanda", d:"Carrera con alta demanda y proyección de crecimiento, alta y rápida empleabilidad en México y el extranjero, y alto nivel de ingresos desde recién egresado."},
+      {t:"Especialízate", d:"Elige una concentración y crea un perfil a tu medida: inteligencia artificial y ciencia de datos, seguridad y redes computacionales, o gráficas computacionales y videojuegos."},
+      {t:"Dónde trabajan nuestros egresados", d:"Egresados de Campus Chihuahua han sido contratados por empresas como Meta, Google, Microsoft, Amazon, IBM, Oracle y AutoZone."},
+      {t:"Experiencia profesional", d:"Prácticas profesionales en México y el extranjero, con profesores vinculados con la práctica profesional."},
+      {t:"Internacional", d:"Alianzas con universidades como Carnegie Mellon, UT Austin, University of British Columbia, National University of Singapore, Monash, Chinese University of Hong Kong y University of Essex."}
+    ]
+  },
+  IBT: {
+    nombre: "Ingeniería en Biotecnología",
+    onepage: "https://tecmx-my.sharepoint.com/:b:/r/personal/manuel_valencia_tec_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras%2FOne%20Page%20IBT%202026%2Epdf&parent=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras&share=cQoVoU6H5Kn7T5TluRWTe8qnEgUCUBCVkUDwLwW98On2O4yPVQ",
+    color: "var(--IBT)",
+    lema: "Desbloquea la ciencia del mañana.",
+    descripcion: "Usas la biología, la genética y la ingeniería para crear soluciones en salud, alimentos, medio ambiente y energía: desde procesos con microorganismos y células hasta productos como medicamentos, alimentos o bioplásticos.",
+    teInteresaSi: "te fascinan los seres vivos, disfrutas el laboratorio, te llaman la atención la genética, las vacunas o los alimentos del futuro, y quieres que la ciencia tenga un impacto positivo.",
+    afinidades: ["Biología", "Química", "Pensamiento lógico y analítico", "Curiosidad científica"],
+    aprenderas: ["Microbiología", "Biología molecular e ingeniería genética", "Bioprocesos y biorreactores", "Bioinformática", "Diagnóstico molecular"],
+    areas: ["Salud y farmacéutica", "Desarrollo de alimentos", "Genómica y biología sintética", "Medio ambiente y agua", "Bioemprendimiento"],
+    trabajo: ["Industria farmacéutica, alimentaria, cosmética y agroalimentaria", "Medio ambiente y biorremediación", "Bioinformática", "Centros de investigación", "Regulación y bioseguridad"],
+    semestres: 8,
+    chihuahua: [
+      {t:"Equipo iGEM Tec-Chihuahua", d:"Puedes unirte a este equipo, referente latinoamericano en biología sintética."},
+      {t:"Biohack", d:"Un startup weekend nacional de 48 horas, con incubadora para emprender en biotecnología. De aquí han salido casos como SaveFruit, GreenBTS, Aureobos y Zymetec."},
+      {t:"Empresas e instituciones con las que trabajarás", d:"Heineken, Innovak, CIMAV, SaveFruit, Bafar y la Unidad de Investigación en Salud."},
+      {t:"Internacional", d:"Convenios con más de 100 universidades en 20 países, como Cornell, EPFL, UCL, Berkeley, McGill y TU München, y grados internacionales con Essex, Rennes, Queensland y Macquarie."}
+    ]
+  },
+  IC: {
+    nombre: "Ingeniería Civil",
+    onepage: "https://tecmx-my.sharepoint.com/:b:/r/personal/manuel_valencia_tec_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras%2FOne%20Page%20IC%2Epdf&parent=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras&share=cQpEAnaYKvBsTqtjaxvCBA%5FrEgUC5OU7XNMuWo9clzz5cU8%2D1g",
+    color: "var(--IC)",
+    lema: "Construye las infraestructuras que transforman ciudades y mejoran vidas.",
+    descripcion: "Planeas, diseñas, construyes y mantienes las obras que cambian la vida de las personas: edificios, puentes, carreteras, redes de agua y desarrollo urbano.",
+    teInteresaSi: "te imaginas dirigiendo una obra, te preguntas cómo se sostienen los edificios y puentes, y quieres dejar algo tangible que beneficie a tu comunidad.",
+    afinidades: ["Matemáticas", "Física", "Mente analítica", "Liderazgo y trabajo en equipo", "Compromiso con el entorno"],
+    aprenderas: ["Análisis estructural", "Mecánica de suelos", "Hidráulica", "Materiales de construcción", "Modelado y simulación", "Costos y administración de proyectos"],
+    areas: ["Diseño estructural", "Modelado digital de la construcción (BIM)", "Gestión del agua", "Sector inmobiliario", "Transporte y movilidad urbana"],
+    trabajo: ["Constructoras e inmobiliarias", "Gerencia y supervisión de obra", "Despachos de diseño estructural", "Consultoría ambiental", "Empresas de tecnología para la construcción"],
+    semestres: 9,
+    chihuahua: [
+      {t:"Empresas con las que trabajarás", d:"Grupo Cementos de Chihuahua (GCC), Kalisch Acero, CROCSA, Abitat, CMIC, el Colegio de Ingenieros Civiles de Chihuahua y el Clúster de la Construcción Chihuahua."},
+      {t:"Concursos internacionales", d:"Campus Chihuahua se prepara para competir en la Concrete Canoe Competition de la ASCE (una canoa de concreto que flota y compite) y en la Student Steel Bridge Competition."},
+      {t:"Internacional", d:"Intercambio en universidades como Politecnico di Milano, TU Darmstadt, École Polytechnique, University of Toronto, Kyoto University y National University of Singapore."}
+    ]
+  },
+  IIS: {
+    nombre: "Ingeniería Industrial y de Sistemas",
+    onepage: "https://tecmx-my.sharepoint.com/:b:/r/personal/manuel_valencia_tec_mx/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras%2FOnePage%20Industrial%2Epdf&parent=%2Fpersonal%2Fmanuel%5Fvalencia%5Ftec%5Fmx%2FDocuments%2FDE%2FOne%20pages%20carreras&share=cQqUzboVTKbGQIYZV2n3H%2DPSEgUCcrrQ%5FYgM9JpEFOXfgxmd%5Fw",
+    color: "var(--IIS)",
+    lema: "Transforma los sistemas que mueven al mundo.",
+    descripcion: "Haces que empresas, fábricas, hospitales y cadenas de suministro funcionen mejor, más rápido y con menos desperdicio, integrando personas, procesos, datos y tecnología.",
+    teInteresaSi: "te gusta organizar, encontrar la forma más eficiente de hacer las cosas, liderar equipos y resolver problemas con datos; o si te atraen tanto la ingeniería como los negocios.",
+    afinidades: ["Pensamiento analítico", "Estadística", "Liderazgo y trabajo en equipo", "Tecnología y digitalización"],
+    aprenderas: ["Diseño de procesos productivos", "Optimización y simulación", "Ciencia de datos", "Logística y cadena de suministro", "Administración de proyectos"],
+    areas: ["Cadenas de suministro digitales", "Mejora de operaciones en la industria", "Industria 4.0", "Emprendimiento e innovación"],
+    trabajo: ["Calidad y productividad", "Logística y cadena de suministro", "Consultoría y dirección de proyectos", "Planeación estratégica", "Sectores automotriz, financiero y de salud"],
+    semestres: 8,
+    chihuahua: [
+      {t:"Proyectos con empresas reales", d:"Proyectos y estancias en empresas locales con presencia global a lo largo de toda la carrera."},
+      {t:"Un entorno ideal para la carrera", d:"Sectores automotriz, aeroespacial, electrónico, de equipo médico y minero, conectados a las cadenas de suministro de Norteamérica."},
+      {t:"Comunidad profesional", d:"Afiliación al Institute of Industrial and Systems Engineers (IISE)."},
+      {t:"Alemania", d:"Estancias de un semestre con el programa KOSPIE (DAAD) y doble titulación con 18 universidades alemanas."}
+    ]
+  }
+};
+
+/* Puntos: opción exclusiva = 3; opción compartida = 2 c/u.
+   Materias (elige 2): exclusiva = 2; compartida entre 2 = 1.5; entre 3 = 1.2.
+   Escalas (0–4): peso 1 exclusiva, 0.75 compartida. */
+const POR_QUE_CHIHUAHUA = [
+  {t:"Atención personalizada", d:"Grupos donde tus profesores te conocen, y un ambiente de colaboración, no de competencia."},
+  {t:"Retos reales con empresas desde el primer semestre", d:"Y sin tener que elegir tu carrera desde el inicio."},
+  {t:"Un estado industrial", d:"Chihuahua es el estado del país con mayor valor de exportaciones a Norteamérica, la mayoría de alta tecnología (automotriz, aeroespacial, electrónica, equipo médico). Tiene 58 parques industriales y el Parque Tecnológico Orión junto al campus."},
+  {t:"Al mundo desde aquí", d:"Más de 400 convenios internacionales, con opciones de doble titulación o de título más maestría en el extranjero."},
+  {t:"Una ciudad accesible", d:"La renta es alrededor de 20% más barata que en las grandes ciudades."}
+];
+
+const PREGUNTAS = [
+  { id:"q1", tipo:"opcion", texto:"Tienes un sábado libre. ¿Qué prefieres hacer?", razon:"En tu sábado libre elegiste",
+    opciones:[
+      {emo:"🔧", texto:"Reparar o armar algo: una bici, un mueble, un aparato descompuesto", corto:"reparar o armar algo", pts:{IMT:3}},
+      {emo:"🧩", texto:"Resolver retos de lógica o crear tu propia app o videojuego", corto:"resolver retos de lógica o crear tu propia app", pts:{ITC:3}},
+      {emo:"🧪", texto:"Hacer un experimento en casa: fermentar algo, cultivar plantas o ver qué pasa si mezclas cosas", corto:"hacer un experimento en casa", pts:{IBT:3}},
+      {emo:"🏙️", texto:"Jugar un juego de construir ciudades o armar una maqueta", corto:"construir ciudades o armar una maqueta", pts:{IC:3}},
+      {emo:"🗓️", texto:"Organizar un evento o viaje con tus amigos", corto:"organizar un evento o viaje", pts:{IIS:3}}
+    ]},
+  { id:"q2", tipo:"opcion", texto:"¿Qué proyecto te gustaría presumir?", razon:"El proyecto que te gustaría presumir:",
+    opciones:[
+      {emo:"🤖", texto:"Un robot que clasifica objetos", corto:"un robot que clasifica objetos", pts:{IMT:3}},
+      {emo:"🧠", texto:"Un sistema de inteligencia artificial que usan miles de personas", corto:"un sistema de inteligencia artificial", pts:{ITC:3}},
+      {emo:"🌱", texto:"Un plástico biodegradable hecho de residuos", corto:"un plástico biodegradable", pts:{IBT:3}},
+      {emo:"🌉", texto:"Un puente que resiste sismos", corto:"un puente que resiste sismos", pts:{IC:3}},
+      {emo:"🎪", texto:"La operación completa de un festival de música para 30 mil personas: accesos, filas, abasto y seguridad", corto:"la operación de un festival para 30 mil personas", pts:{IIS:3}}
+    ]},
+  { id:"q3", tipo:"opcion", texto:"En un proyecto en equipo, tu rol natural es…", razon:"Tu rol natural en equipo:",
+    opciones:[
+      {emo:"🛠️", texto:"Construir el prototipo", corto:"construir el prototipo", pts:{IMT:3}},
+      {emo:"💻", texto:"Encontrar la lógica de la solución y automatizarla con tecnología", corto:"encontrar la lógica y automatizar la solución", pts:{ITC:3}},
+      {emo:"🔬", texto:"Investigar y experimentar", corto:"investigar y experimentar", pts:{IBT:3}},
+      {emo:"📋", texto:"Planear y coordinar: calendario, materiales, presupuesto y quién hace qué", corto:"planear y coordinar", pts:{IC:2, IIS:2}}
+    ]},
+  { id:"q4", tipo:"multi", elegir:2, texto:"Elige tus 2 materias favoritas", razon:"Entre tus materias favoritas está",
+    opciones:[
+      {emo:"⚛️", texto:"Física", corto:"Física", pts:{IMT:1.5, IC:1.5}},
+      {emo:"➗", texto:"Matemáticas", corto:"Matemáticas", pts:{IC:1.2, IIS:1.2, ITC:1.2}},
+      {emo:"🧬", texto:"Biología", corto:"Biología", pts:{IBT:2}},
+      {emo:"⚗️", texto:"Química", corto:"Química", pts:{IBT:2}},
+      {emo:"💻", texto:"Computación o programación", corto:"Computación o programación", pts:{ITC:2}},
+      {emo:"📐", texto:"Dibujo técnico", corto:"Dibujo técnico", pts:{IC:1.5, IMT:1.5}},
+      {emo:"📊", texto:"Economía o administración", corto:"Economía o administración", pts:{IIS:2}}
+    ]},
+  { id:"q5", tipo:"opcion", texto:"¿Dónde te imaginas trabajando?", razon:"Te imaginas trabajando",
+    opciones:[
+      {emo:"🏭", texto:"En una planta automotriz o aeroespacial, programando y dando mantenimiento a robots industriales", corto:"con robots industriales en una planta automotriz o aeroespacial", pts:{IMT:3}},
+      {emo:"👩‍💻", texto:"En un equipo que crea inteligencia artificial, ciberseguridad o software para empresas de México y el mundo, en oficina o de forma remota", corto:"creando IA, ciberseguridad o software", pts:{ITC:3}},
+      {emo:"🧑‍🔬", texto:"En el laboratorio de una empresa de alimentos, farmacéutica o de diagnóstico clínico", corto:"en un laboratorio de alimentos, farmacéutica o diagnóstico", pts:{IBT:3}},
+      {emo:"🦺", texto:"En la obra de un edificio, carretera o planta de tratamiento, supervisando que todo avance bien", corto:"supervisando una obra", pts:{IC:3}},
+      {emo:"🚚", texto:"En el área de operaciones o logística de una empresa, mejorando cómo se produce y distribuye", corto:"en operaciones y logística", pts:{IIS:3}}
+    ]},
+  { id:"q6", tipo:"opcion", texto:"Chihuahua tiene poca agua. ¿Cómo atacarías el problema?", razon:"Para el problema del agua propusiste",
+    opciones:[
+      {emo:"📡", texto:"Sensores y sistemas de riego automático", corto:"sensores y riego automático", pts:{IMT:3}},
+      {emo:"📱", texto:"Un sistema con inteligencia artificial que analice los datos de toda la ciudad para detectar desperdicios y predecir el consumo", corto:"un sistema con IA que detecte desperdicios y prediga el consumo", pts:{ITC:3}},
+      {emo:"🦠", texto:"Microorganismos que limpien el agua residual para reutilizarla", corto:"microorganismos que limpien el agua", pts:{IBT:3}},
+      {emo:"🏗️", texto:"Diseñar y construir presas, acueductos y redes de distribución que no pierdan agua", corto:"diseñar y construir presas y redes de agua", pts:{IC:3}},
+      {emo:"📈", texto:"Usar modelos de datos y optimización para decidir cuánta agua asignar a la ciudad, el campo y la industria", corto:"modelos de optimización para repartir el agua", pts:{IIS:3}}
+    ]},
+  { id:"q7", tipo:"opcion", texto:"¿Cómo te gustaría ayudar a tu comunidad?", razon:"Para ayudar a tu comunidad elegiste",
+    opciones:[
+      {emo:"🦾", texto:"Diseñando una prótesis o un dispositivo automatizado para quien lo necesite", corto:"diseñar una prótesis o dispositivo automatizado", pts:{IMT:3}},
+      {emo:"🛡️", texto:"Creando una plataforma con inteligencia artificial para tu ciudad o protegiendo los datos de un hospital contra ciberataques", corto:"crear una plataforma con IA o proteger datos contra ciberataques", pts:{ITC:3}},
+      {emo:"🩺", texto:"Desarrollando una prueba de diagnóstico o un tratamiento para limpiar suelos contaminados", corto:"desarrollar una prueba de diagnóstico o limpiar suelos", pts:{IBT:3}},
+      {emo:"🚲", texto:"Diseñando una ciclovía, un puente peatonal o el drenaje de una colonia que se inunda", corto:"diseñar una ciclovía, puente o drenaje", pts:{IC:3}},
+      {emo:"🥫", texto:"Rediseñando cómo opera un banco de alimentos o una clínica para que atiendan a más personas en menos tiempo", corto:"rediseñar la operación de un banco de alimentos o clínica", pts:{IIS:3}}
+    ]},
+  { id:"q8",  tipo:"escala", texto:"Me gusta entender cómo funcionan las máquinas por dentro.", pts:{IMT:1} },
+  { id:"q9",  tipo:"escala", texto:"Me intriga cómo funcionan por dentro las apps, la inteligencia artificial o internet.", pts:{ITC:1} },
+  { id:"q10", tipo:"escala", texto:"La biología y la química me parecen interesantes.", pts:{IBT:1} },
+  { id:"q11", tipo:"escala", texto:"Me llama la atención cómo se construyen edificios, puentes o carreteras.", pts:{IC:1} },
+  { id:"q12", tipo:"escala", texto:"Cuando algo se hace de forma ineficiente, pienso en cómo mejorarlo.", pts:{IIS:1} },
+  { id:"q16", tipo:"escala", texto:"Disfruto los acertijos, patrones y retos de lógica, aunque me tome tiempo resolverlos.", pts:{ITC:1} },
+  { id:"q13", tipo:"escala", texto:"Me gusta trabajar con las manos: herramientas, armar y construir.", pts:{IMT:.75, IC:.75} },
+  { id:"q14", tipo:"escala", texto:"Me motiva liderar equipos y tomar decisiones.", pts:{IIS:.75, IC:.75} },
+  { id:"q15", tipo:"escala", texto:"Me gusta analizar datos y gráficas para tomar decisiones.", pts:{IIS:.75, ITC:.75} }
+];
+
+const ESCALA = [
+  {emo:"🙅", texto:"Nada que ver conmigo"},
+  {emo:"🤏", texto:"Poco"},
+  {emo:"🤷", texto:"Más o menos"},
+  {emo:"👍", texto:"Bastante"},
+  {emo:"🙌", texto:"¡Totalmente yo!"}
+];
+
+/* =====================================================================
+   LÓGICA DE LA APLICACIÓN
+   ===================================================================== */
+const app = document.getElementById("app");
+const SIGLAS = Object.keys(PROGRAMAS);
+let estado;
+
+function nuevoEstado(){
+  const orden = {};
+  PREGUNTAS.forEach(q => { if(q.opciones) orden[q.id] = barajar(q.opciones.map((_,i)=>i)); });
+  return { paso:"aviso", actual:0, resp:{}, orden };
+}
+function barajar(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function render(){
+  window.scrollTo({top:0});
+  if(estado.paso==="aviso") return vistaAviso();
+  if(estado.paso==="inicio") return vistaInicio();
+  if(estado.paso==="pregunta") return vistaPregunta();
+  if(estado.paso==="resultados") return vistaResultados();
+}
+
+function vistaAviso(){
+  app.innerHTML = `
+  <div class="card aviso fade">
+    <div class="icono">ℹ️</div>
+    <h1>Antes de empezar</h1>
+    <p><strong>Esta herramienta NO es un test vocacional ni una prueba psicométrica regulada</strong>, y no pretende sustituir el trabajo de ningún profesional de la orientación vocacional o la psicología.</p>
+    <ul>
+      <li>Es una herramienta <strong>informativa</strong> para conocer los programas de la Escuela de Ingeniería y Ciencias del Tec de Monterrey, Campus Chihuahua.</li>
+      <li>Te ayuda a explorar cómo esos programas pueden relacionarse con tus intereses, habilidades y metas.</li>
+      <li>Los resultados son <strong>sugerencias para platicar con el personal de admisiones</strong>, no un diagnóstico ni una decisión.</li>
+      <li>No se guarda ninguna de tus respuestas ni datos personales.</li>
+    </ul>
+    <p class="muted">Si quieres una orientación vocacional formal, te recomendamos acudir con un profesional especializado.</p>
+    <div class="acciones"><button class="btn" id="ok">Entiendo y quiero continuar</button></div>
+  </div>`;
+  document.getElementById("ok").onclick = () => { estado.paso="inicio"; render(); };
+}
+
+function vistaInicio(){
+  app.innerHTML = `
+  <div class="card fade">
+    <h1>¿Qué ingeniería va contigo? 🚀</h1>
+    <p>Contesta <strong>${PREGUNTAS.length} preguntas rápidas</strong> sobre lo que te gusta, cómo trabajas y lo que te gustaría lograr. Te toma unos 5 minutos.</p>
+    <p>No hay respuestas correctas ni incorrectas: elige lo que más se parezca a ti, no lo que creas que "suena mejor".</p>
+    <p class="muted">Al final verás qué tanto se relacionan tus respuestas con los programas que puedes estudiar completos en Campus Chihuahua:</p>
+    <div class="chips">${SIGLAS.map(s=>`<span class="chip" style="background:${PROGRAMAS[s].color}">${esc(PROGRAMAS[s].nombre)} (${s})</span>`).join("")}</div>
+    <div class="acciones"><button class="btn" id="go">Comenzar</button></div>
+  </div>`;
+  document.getElementById("go").onclick = () => { estado.paso="pregunta"; estado.actual=0; render(); };
+}
+
+function vistaPregunta(){
+  const q = PREGUNTAS[estado.actual], n = PREGUNTAS.length, r = estado.resp[q.id];
+  let cuerpo = "", ayuda = "";
+  if(q.tipo==="opcion" || q.tipo==="multi"){
+    ayuda = q.tipo==="multi" ? `Selecciona ${q.elegir}.` : "Elige la que más se parezca a ti.";
+    cuerpo = `<div class="opciones ${q.tipo==="multi"?"materias":""}">` +
+      estado.orden[q.id].map(i => {
+        const o = q.opciones[i];
+        const sel = q.tipo==="multi" ? (r||[]).includes(i) : r===i;
+        return `<button class="opcion ${sel?"sel":""}" data-i="${i}" aria-pressed="${sel}"><span class="emo">${o.emo}</span><span>${esc(o.texto)}</span></button>`;
+      }).join("") + `</div>` +
+      (q.tipo==="multi" ? `<div class="contador" id="cont">${(r||[]).length} de ${q.elegir} seleccionadas</div>` : "");
+  } else {
+    ayuda = "¿Qué tanto se parece a ti?";
+    cuerpo = `<div class="escala">` + ESCALA.map((e,i)=>
+      `<button class="opcion ${r===i?"sel":""}" data-i="${i}" aria-pressed="${r===i}"><span class="emo">${e.emo}</span><span>${e.texto}</span></button>`).join("") + `</div>`;
+  }
+  const listo = q.tipo==="multi" ? (r||[]).length===q.elegir : r!==undefined;
+  app.innerHTML = `
+  <div class="card fade">
+    <div class="progreso"><span>Pregunta ${estado.actual+1} de ${n}</span><span>${Math.round(estado.actual/n*100)}%</span></div>
+    <div class="barra"><i style="width:${estado.actual/n*100}%"></i></div>
+    <p class="pregunta">${esc(q.texto)}</p>
+    <div class="ayuda">${ayuda}</div>
+    ${cuerpo}
+    <div class="acciones">
+      <button class="btn link" id="atras">← Anterior</button>
+      <span style="flex:1"></span>
+      <button class="btn" id="sig" ${listo?"":"disabled"}>${estado.actual===n-1?"Ver mis resultados":"Siguiente →"}</button>
+    </div>
+  </div>`;
+
+  app.querySelectorAll(".opcion").forEach(b => b.onclick = () => {
+    const i = +b.dataset.i;
+    if(q.tipo==="multi"){
+      let arr = [...(estado.resp[q.id]||[])];
+      if(arr.includes(i)) arr = arr.filter(x=>x!==i);
+      else { if(arr.length>=q.elegir) arr.shift(); arr.push(i); }
+      estado.resp[q.id] = arr; vistaPregunta();
+    } else {
+      estado.resp[q.id] = i;
+      app.querySelectorAll(".opcion").forEach(x=>{x.classList.toggle("sel", x===b); x.setAttribute("aria-pressed", x===b);});
+      document.getElementById("sig").disabled = false;
+      const idx = estado.actual;
+      setTimeout(() => { if(estado.paso==="pregunta" && estado.actual===idx) avanzar(); }, 280);
+    }
+  });
+  document.getElementById("sig").onclick = avanzar;
+  document.getElementById("atras").onclick = () => {
+    if(estado.actual===0){ estado.paso="inicio"; } else estado.actual--;
+    render();
+  };
+}
+
+let avanzando = false;
+function avanzar(){
+  if(avanzando) return; avanzando = true;
+  setTimeout(()=>avanzando=false, 350);
+  if(estado.paso!=="pregunta") return;
+  if(estado.actual < PREGUNTAS.length-1){ estado.actual++; } else { estado.paso="resultados"; }
+  render();
+}
+
+/* Cálculo: puntaje de cada programa / puntaje máximo alcanzable para ese programa */
+function calcular(){
+  const res = {}; SIGLAS.forEach(s => res[s] = {pts:0, max:0, razones:[]});
+  PREGUNTAS.forEach(q => {
+    const r = estado.resp[q.id];
+    SIGLAS.forEach(s => {
+      if(q.tipo==="escala"){ res[s].max += 4*(q.pts[s]||0); }
+      else {
+        const vals = q.opciones.map(o=>o.pts[s]||0).sort((a,b)=>b-a);
+        const k = q.tipo==="multi" ? q.elegir : 1;
+        res[s].max += vals.slice(0,k).reduce((a,b)=>a+b,0);
+      }
+    });
+    if(r===undefined) return;
+    if(q.tipo==="escala"){
+      Object.entries(q.pts).forEach(([s,w]) => {
+        res[s].pts += r*w;
+        if(r>=3) res[s].razones.push({p:r*w, t:`Te identificas con: «${q.texto}»`});
+      });
+    } else {
+      (q.tipo==="multi" ? r : [r]).forEach(i => {
+        const o = q.opciones[i];
+        Object.entries(o.pts).forEach(([s,w]) => {
+          res[s].pts += w;
+          res[s].razones.push({p:w, t:`${q.razon} <strong>${esc(o.corto)}</strong>.`});
+        });
+      });
+    }
+  });
+  return SIGLAS.map(s => ({s, pct: res[s].max ? Math.round(res[s].pts/res[s].max*100) : 0, pts:res[s].pts,
+      razones: res[s].razones.sort((a,b)=>b.p-a.p).slice(0,4).map(x=>x.t)}))
+    .sort((a,b)=> b.pct-a.pct || b.pts-a.pts);
+}
+
+function lista(arr){ return `<ul>${arr.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`; }
+
+function ficha(s){
+  const p = PROGRAMAS[s];
+  return `<div class="ficha">
+    <p>${esc(p.descripcion)}</p>
+    <p><strong>Te puede interesar si…</strong> ${esc(p.teInteresaSi)}</p>
+    <h3>Afinidades</h3>${lista(p.afinidades)}
+    <h3>Qué aprenderás</h3>${lista(p.aprenderas)}
+    <h3>Áreas de especialidad (ejemplos)</h3>${lista(p.areas)}
+    <h3>Dónde trabajan los egresados</h3>${lista(p.trabajo)}
+    ${p.chihuahua && p.chihuahua.length ? `<div class="campus" style="border-color:${p.color};background:color-mix(in srgb, ${p.color} 7%, white)">
+      <h3 style="color:${p.color}">📍 Estudiar ${esc(p.nombre)} en Campus Chihuahua</h3>
+      ${p.chihuahua.map(x=>`<p class="cpt"><strong>${esc(x.t)}:</strong> ${esc(x.d)}</p>`).join("")}</div>` : ""}
+    <div class="pie-ficha">
+      <span class="meta">Plan completo en Campus Chihuahua · ${p.semestres} semestres</span>
+      ${p.onepage ? `<a class="btn-onepage no-imprimir" href="${p.onepage}" target="_blank" rel="noopener" style="border-color:${p.color};color:${p.color}">📄 Ver one page del programa</a>` : ""}
+    </div>
+  </div>`;
+}
+
+function porque(r){
+  if(!r.razones.length) return `<div class="porque"><strong>Tus respuestas tuvieron poca relación con este programa</strong>, pero vale la pena conocerlo.</div>`;
+  return `<div class="porque"><strong>¿Por qué aparece aquí?</strong><ul>${r.razones.map(t=>`<li>${t}</li>`).join("")}</ul></div>`;
+}
+
+function vistaResultados(){
+  const rk = calcular(), top = rk[0], pT = PROGRAMAS[top.s];
+  const empate = rk[1] && (top.pct - rk[1].pct) <= 5;
+  const fecha = new Date().toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"});
+  app.innerHTML = `
+  <div class="fade">
+    <div class="solo-impresion" style="margin-bottom:14px">
+      <strong>Explorador de Ingenierías · EIC Campus Chihuahua</strong> — ${fecha}
+    </div>
+    <h1>Tus resultados ✨</h1>
+    <p class="muted">Estos resultados muestran qué tanto se relacionan tus respuestas con cada programa. Son un punto de partida para platicar con el personal de admisiones.</p>
+    ${empate ? `<div class="nota">🤝 Tienes una afinidad muy parecida con <strong>${esc(pT.nombre)}</strong> y <strong>${esc(PROGRAMAS[rk[1].s].nombre)}</strong>. Vale mucho la pena conocer ambos programas.</div>` : ""}
+
+    <div class="top">
+      <div class="top-cab" style="background:${pT.color}">
+        <div class="eti">Tu programa con mayor afinidad</div>
+        <div class="fila">
+          <div><div class="nom">${top.s} · ${esc(pT.nombre)}</div><div class="lema">“${esc(pT.lema)}”</div></div>
+          <div class="pct">${top.pct}%</div>
+        </div>
+      </div>
+      <div class="top-cuerpo">${porque(top)}${ficha(top.s)}</div>
+    </div>
+
+    <div class="seccion">Tu afinidad con cada programa</div>
+    <div class="card" style="padding:22px">
+      <div class="grafica">
+        ${rk.map(r=>`<div class="gfila">
+          <div class="gcab"><span class="sig" style="color:${PROGRAMAS[r.s].color}">${esc(PROGRAMAS[r.s].nombre)} <span class="muted">(${r.s})</span></span><span class="val">${r.pct}%</span></div>
+          <div class="gpista"><i data-w="${r.pct}" style="width:0;background:${PROGRAMAS[r.s].color}"></i></div></div>`).join("")}
+      </div>
+    </div>
+
+    <div class="seccion">¿Por qué Campus Chihuahua?</div>
+    <div class="card general">
+      <ul>${POR_QUE_CHIHUAHUA.map(x=>`<li><strong>${esc(x.t)}:</strong> ${esc(x.d)}</li>`).join("")}</ul>
+    </div>
+
+    <div class="seccion">Conoce los demás programas</div>
+    ${rk.slice(1).map(r=>{ const p=PROGRAMAS[r.s]; return `
+      <details class="otro" style="border-left-color:${p.color}">
+        <summary><span class="chip" style="background:${p.color}">${r.s}</span><span class="n">${esc(p.nombre)}</span><span class="p" style="color:${p.color}">${r.pct}%</span><span class="flecha">▶</span></summary>
+        <div class="det"><p class="lema" style="font-style:italic">“${esc(p.lema)}”</p>${porque(r)}${ficha(r.s)}</div>
+      </details>`;}).join("")}
+
+    <div class="solo-impresion nota" style="margin-top:18px">
+      <strong>Aviso:</strong> Esta herramienta no es un test vocacional ni una prueba psicométrica regulada y no sustituye la orientación de un profesional. Es una herramienta informativa para conocer los programas de la Escuela de Ingeniería y Ciencias del Tec de Monterrey, Campus Chihuahua.
+    </div>
+
+    <div class="acciones no-imprimir">
+      <button class="btn" id="imp">🖨️ Imprimir / guardar PDF</button>
+      <button class="btn sec" id="nuevo">Nuevo candidato</button>
+      <button class="btn link" id="rev">← Revisar respuestas</button>
+    </div>
+  </div>`;
+  requestAnimationFrame(()=>setTimeout(()=>app.querySelectorAll(".gpista i").forEach(i=>i.style.width=i.dataset.w+"%"),60));
+  document.getElementById("imp").onclick = () => window.print();
+  document.getElementById("nuevo").onclick = () => {
+    if(confirm("¿Borrar estas respuestas y empezar con un nuevo candidato?")){ estado = nuevoEstado(); render(); }
+  };
+  document.getElementById("rev").onclick = () => { estado.paso="pregunta"; estado.actual=PREGUNTAS.length-1; render(); };
+}
+
+/* Al imprimir: abrir todas las fichas y mostrar las barras completas */
+window.addEventListener("beforeprint", () => {
+  document.querySelectorAll("details.otro").forEach(d=>{ d.dataset.prev = d.open; d.open = true; });
+  document.querySelectorAll(".gpista i").forEach(i=>i.style.width=i.dataset.w+"%");
+});
+window.addEventListener("afterprint", () => {
+  document.querySelectorAll("details.otro").forEach(d=>{ d.open = d.dataset.prev==="true"; });
+});
+
+estado = nuevoEstado();
+render();
+</script>
+</body>
+</html>
