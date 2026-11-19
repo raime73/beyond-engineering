@@ -2,9 +2,9 @@
 const programs = {
   ITC: {
     name: 'Ingeniería en Tecnologías Computacionales',
-    phrase: 'Creas el software, los datos y las redes que mueven todo.',
+    phrase: 'Creas el software, analizas los datos, integras la IA y las redes que mueven todo.',
     color: '#7B3FE4',
-    areas: ['IA y ciencia de datos', 'Ciberseguridad y redes', 'Software', 'Gráficas y videojuegos'],
+    areas: ['IA y ciencia de datos', 'Ciberseguridad y redes', 'Software y Cloud Computing', 'Videojuegos'],
     companies: ['Meta', 'Google', 'Microsoft', 'Amazon', 'Trivago', 'Oracle', 'AutoZone']
   },
   IBT: {
@@ -111,12 +111,6 @@ if (!code) {
           <div><strong>Siguiente paso</strong><span>Pregunta en Admisiones por <b>${code}</b>.</span></div>
         </div>
       </article>
-      <aside class="side-note" aria-label="Sobre esta vista">
-        <h2>Vista para directores</h2>
-        <p>Esta página muestra el resultado de elegir una carrera como favorita. El puntaje y las demás cartas dependen de cada partida y por eso no aparecen en esta vista.</p>
-        <p>El micrositio no está enlazado desde la página principal y se solicita a buscadores que no lo indexen. Cualquier persona con la dirección puede abrirlo.</p>
-        <a href="${game.href}">Abrir TeusGame</a>
-      </aside>
     </div>
   `);
 } else {

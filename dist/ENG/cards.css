@@ -32,7 +32,7 @@ a:focus-visible { outline: 3px solid var(--spark); outline-offset: 4px; }
 .program-nav { display: flex; gap: .55rem; flex-wrap: wrap; margin: .65rem 0 2rem; }
 .program-nav a { min-width: 3.7rem; padding: .45rem .8rem; border: 1px solid #ffffff45; border-radius: 999px; text-align: center; font-weight: 850; text-decoration: none; }
 .program-nav a:hover, .program-nav a[aria-current="page"] { border-color: var(--spark); background: var(--spark); color: var(--deep); }
-.preview-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(245px, .7fr); gap: clamp(1.25rem, 4vw, 3rem); align-items: start; padding-bottom: 3rem; }
+.preview-layout { width: min(100%, 760px); margin-inline: auto; padding-bottom: 3rem; }
 .result-card {
   position: relative;
   overflow: hidden;
@@ -61,10 +61,6 @@ a:focus-visible { outline: 3px solid var(--spark); outline-offset: 4px; }
 .next img { width: 4.5rem; height: auto; flex: 0 0 auto; }
 .next strong, .next span { display: block; }
 .next span { font-size: .88rem; }
-.side-note { border: 1px solid #ffffff30; border-radius: 18px; padding: 1.25rem; background: #ffffff0d; }
-.side-note h2 { margin: 0 0 .5rem; font-size: 1.15rem; }
-.side-note p { margin: 0 0 1rem; color: var(--muted); }
-.side-note a { display: inline-block; margin-top: .2rem; font-weight: 800; text-underline-offset: .2rem; }
 .directory { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; padding-bottom: 3rem; }
 .directory a { display: flex; flex-direction: column; min-height: 260px; padding: 1.3rem; border: 1px solid #ffffff40; border-top: 7px solid var(--program); border-radius: 18px; background: #ffffff0e; text-decoration: none; transition: transform .2s ease, background .2s ease; }
 .directory a:hover { transform: translateY(-5px); background: #ffffff18; }
@@ -74,7 +70,6 @@ a:focus-visible { outline: 3px solid var(--spark); outline-offset: 4px; }
 .directory img { width: 6rem; max-height: 7rem; object-fit: contain; margin-top: auto; margin-left: auto; }
 .site-foot { padding: 1.4rem 0 2rem; border-top: 1px solid #ffffff30; color: var(--muted); font-size: .8rem; }
 @media (max-width: 720px) {
-  .preview-layout { grid-template-columns: 1fr; }
   .card-hero { grid-template-columns: 105px 1fr; }
   .review-label { max-width: 13ch; }
 }
