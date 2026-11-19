@@ -34,7 +34,7 @@ const audienceContent = {
   },
   family: {
     title: 'Tu misión: acompañar y llevarte algo útil.',
-    copy: 'Conoce el entorno que vivirán las y los estudiantes y participa en un curso práctico de IA aplicada a procesos empresariales.'
+    copy: 'Mientras descubren las ingenierías, tú aprenderás a crear agentes, analizar archivos y aplicar IA para trabajar y decidir mejor.'
   }
 };
 
