@@ -15,7 +15,7 @@
     />
     <meta property="og:image" content="assets/beyond-engineering-poster.jpeg" />
     <title>Beyond Engineering — 5 de diciembre</title>
-    <link rel="stylesheet" href="styles.css?v=20261118-premio" />
+    <link rel="stylesheet" href="styles.css?v=20261118-misiondespegue" />
     <script src="app.js?v=20261118-qrs3" defer></script>
   </head>
   <body>
@@ -32,7 +32,7 @@
       </button>
       <nav id="site-nav" aria-label="Navegación principal">
         <a href="#experiencia">Experiencia</a>
-        <a href="#agenda">Agenda</a>
+        <a href="#juego">Juega con Teus</a>
         <a href="#carreras">Carreras</a>
         <a href="#familias">Para familias</a>
         <a href="explorador-ingenierias/">Test Explorador de Ingenierías</a>
@@ -44,6 +44,14 @@
       <section class="hero" id="inicio" aria-labelledby="hero-title">
         <div class="hero-orbit orbit-one" aria-hidden="true"></div>
         <div class="hero-orbit orbit-two" aria-hidden="true"></div>
+        <div class="hero-countdown countdown" aria-label="Cuenta regresiva al evento">
+          <p>Nos vemos en</p>
+          <div class="countdown-values">
+            <span><strong data-days>—</strong>días</span>
+            <span><strong data-hours>—</strong>horas</span>
+            <span><strong data-minutes>—</strong>min</span>
+          </div>
+        </div>
         <div class="hero-copy reveal">
           <p class="eyebrow">Futuros ingenieros + familias · 05.12 · 10:00</p>
           <h1 id="hero-title"><span>Beyond</span><span>Engineering</span></h1>
@@ -58,7 +66,7 @@
         <div class="hero-visual reveal" aria-hidden="true">
           <div class="launch-window">
             <div class="rocket-flight">
-              <img class="teus-flight" src="assets/teus-colgado-cohete-v1.png" alt="" width="1312" height="1199" fetchpriority="high" decoding="async" />
+              <img class="teus-flight" src="assets/teus-astronauta-cohete-v2.png" alt="" width="530" height="589" fetchpriority="high" decoding="async" />
               <div class="rocket">
                 <svg viewBox="0 0 140 260" role="img">
                   <path d="M70 8c31 28 46 65 46 108v47H24v-47C24 73 39 36 70 8Z" fill="white" />
@@ -164,51 +172,18 @@
         </article>
       </section>
 
-      <section class="agenda" id="agenda" aria-labelledby="agenda-title">
-        <div class="agenda-top">
-          <div>
-            <p class="eyebrow">La ruta del día</p>
-            <h2 id="agenda-title">Una apertura compartida.<br />Dos experiencias en paralelo.</h2>
+      <section class="game-invite" id="juego" aria-labelledby="game-title">
+        <div class="game-invite-inner">
+          <div class="game-invite-copy reveal">
+            <p class="eyebrow">Misión Despegue · 5 ingenierías · 1 cohete</p>
+            <h2 id="game-title">Juega con Teus y descubre qué hace cada ingeniería.</h2>
+            <p>Ayuda a Teus a preparar el despegue: cada ingeniería resuelve una parte del cohete. Supera cinco retos, reúne tus cartas y elige las carreras que más te entusiasman.</p>
+            <a class="button button-accent" href="TeusGame/index.html">Jugar Misión Despegue <span aria-hidden="true">↗</span></a>
           </div>
-          <div class="countdown" aria-label="Cuenta regresiva al evento">
-            <p>Nos vemos en</p>
-            <div class="countdown-values">
-              <span><strong data-days>—</strong>días</span>
-              <span><strong data-hours>—</strong>horas</span>
-              <span><strong data-minutes>—</strong>min</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline reveal">
-          <div class="timeline-row shared">
-            <time datetime="2026-12-05T10:00:00-07:00">10:00</time>
-            <div>
-              <span class="timeline-tag">Todos</span>
-              <h3>Bienvenida + panel de estudiantes y egresados</h3>
-              <p>Una conversación directa para conocer la experiencia académica y profesional desde dentro.</p>
-            </div>
-          </div>
-          <div class="parallel-label"><span>Después, elige tu ruta</span></div>
-          <div class="parallel-paths">
-            <div class="timeline-row student-path">
-              <time>11:00</time>
-              <div>
-                <span class="timeline-tag">Estudiantes</span>
-                <h3>Concurso de cohetes</h3>
-                <p>Concepto, construcción, lanzamiento y aprendizaje en equipo.</p>
-              </div>
-            </div>
-            <div class="timeline-row family-path">
-              <time>11:00</time>
-              <div>
-                <span class="timeline-tag">Familias</span>
-                <h3>Curso: IA aplicada a empresas</h3>
-                <p>Casos prácticos para optimizar procesos, elevar la eficiencia y apoyar decisiones operativas con criterio.</p>
-              </div>
-            </div>
-          </div>
-          <p class="schedule-note">Los horarios posteriores a la apertura se confirmarán en el programa final.</p>
+          <figure class="game-invite-visual reveal">
+            <img src="assets/teus-pensativo-v1.png" alt="Teus, con expresión pensativa y una mano en el mentón, considera cuál ingeniería explorar" width="1029" height="1529" loading="lazy" decoding="async" />
+            <figcaption>¿Qué parte del cohete harías posible tú?</figcaption>
+          </figure>
         </div>
       </section>
 
