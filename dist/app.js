@@ -6,19 +6,33 @@ const setHeaderState = () => header.classList.toggle('scrolled', window.scrollY 
 setHeaderState();
 window.addEventListener('scroll', setHeaderState, { passive: true });
 
+const setMenuOpen = (open) => {
+  menuButton.setAttribute('aria-expanded', String(open));
+  menuButton.querySelector('.sr-only').textContent = open ? 'Cerrar menú' : 'Abrir menú';
+  nav.classList.toggle('open', open);
+  header.classList.toggle('menu-open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
+
 menuButton.addEventListener('click', () => {
-  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-expanded', String(!isOpen));
-  nav.classList.toggle('open', !isOpen);
-  document.body.style.overflow = isOpen ? '' : 'hidden';
+  setMenuOpen(menuButton.getAttribute('aria-expanded') !== 'true');
 });
 
 nav.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => {
-    menuButton.setAttribute('aria-expanded', 'false');
-    nav.classList.remove('open');
-    document.body.style.overflow = '';
+    setMenuOpen(false);
   });
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && nav.classList.contains('open')) {
+    setMenuOpen(false);
+    menuButton.focus();
+  }
+});
+
+window.matchMedia('(min-width: 1181px)').addEventListener('change', (event) => {
+  if (event.matches && nav.classList.contains('open')) setMenuOpen(false);
 });
 
 const revealObserver = new IntersectionObserver(
