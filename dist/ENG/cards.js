@@ -2,7 +2,7 @@
 const programs = {
   ITC: {
     name: 'Ingeniería en Tecnologías Computacionales',
-    phrase: 'Creas el software, analizas los datos, integras la IA y las redes que mueven todo.',
+    phrase: 'Creas software, analizas datos e integras IA y redes para desarrollar soluciones que mueven al mundo.',
     color: '#7B3FE4',
     areas: ['IA y ciencia de datos', 'Ciberseguridad y redes', 'Software y Cloud Computing', 'Videojuegos'],
     companies: ['Meta', 'Google', 'Microsoft', 'Amazon', 'Trivago', 'Oracle', 'AutoZone']
