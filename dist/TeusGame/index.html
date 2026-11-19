@@ -297,10 +297,10 @@ main{flex:1 1 auto;position:relative;overflow:hidden;display:flex;flex-direction
 .scores b{display:block;font-size:.8em;letter-spacing:.04em}
 .scores span{display:block;font-size:.72em;margin-top:.15em;letter-spacing:-.1em}
 .next{margin:.8em 0 0;padding:.7em .8em;border-radius:14px;background:#DCE8FF;color:var(--tec-dark)}
-.next{display:flex;align-items:center;gap:.6em}
+.next{display:flex;align-items:center;flex-wrap:wrap;gap:.6em}
 .next-teus{display:flex;flex:0 0 auto}
-.next-teus img{width:5em;height:auto;display:block}
-.next-teus img+img{margin-left:-1.8em}
+.next-teus img{width:3.3em;height:auto;display:block}
+.next-teus img+img{margin-left:-1.25em}
 .next b{display:block;font-size:.95em}
 .next span{display:block;font-size:.82em;margin-top:.15em;line-height:1.35}
 .disclaimer{margin:.6em 0 0;font-size:.72em;color:var(--muted);text-align:center;line-height:1.35}
@@ -400,7 +400,7 @@ const CONTENT = {
     botonRepetir: 'Volver a jugar este reto',
     mejorIntento: 'Tu mejor intento',
     elegirTitulo: 'Elige tus cartas favoritas',
-    elegirSub: 'Toca 1 o 2 cartas: las de los retos que más te gustaron.',
+    elegirSub: 'Toca las cartas de los retos que más te gustaron. Puedes elegir de 1 a 5.',
     elegirListo: 'Ver mi tarjeta',
     elegirFaltan: 'Elige al menos 1 carta',
     favorita: 'Favorita',
@@ -411,7 +411,6 @@ const CONTENT = {
     kickerVarias: 'Me vi en varias ingenierías',
     kickerTodas: 'Me vi en las 5 · Perfil todoterreno',
     misCartas: 'Mis 5 cartas de ingeniería',
-    maxDos: 'Máximo 2 cartas',
     preguntaPor: 'Pregunta en Admisiones por',
     siguientePasoTitulo: 'Siguiente paso',
     botonExplorador: 'Abrir el Explorador',
@@ -982,7 +981,7 @@ function screenPick() {
   main.querySelectorAll('.pick-card').forEach(b => b.onclick = () => {
     const k = b.dataset.k, i = S.picks.indexOf(k);
     if (i >= 0) S.picks.splice(i, 1);
-    else { if (S.picks.length >= 2) { S.picks.shift(); toast(T.maxDos); } S.picks.push(k); }
+    else S.picks.push(k);
     Snd.tap(); upd();
   });
   upd();
@@ -991,7 +990,7 @@ function screenPick() {
 
 /* ---------- 5. Tarjeta de resultado ---------- */
 function computeResult() {
-  // El resultado son las 1 o 2 cartas que el jugador eligió como favoritas al final.
+  // El resultado incluye todas las cartas que el jugador eligió como favoritas al final.
   // Todas las carreras se juegan igual y se eligen igual: el desempeño en los retos no influye.
   return ORDER.filter(k => S.picks.includes(k));
 }
@@ -1025,7 +1024,7 @@ function screenResult() {
         ${ORDER.map(k => `<li style="--c:${C[k].color}"><b>${esc(C[k].codigo)}</b><em>${esc(R[k].habilidad)}</em><span>${S.picks.includes(k) ? '⭐' : `⚡${S.results[k].energia}%`}</span><span class="sr">${esc(C[k].corto)}${S.picks.includes(k) ? ': ' + esc(T.favorita) : ''}</span></li>`).join('')}
       </ul>
       <div class="next">
-        <div class="next-teus">${top.slice(0, 2).map(k => `<img src="${TEUS_OUTFIT[k]}" alt="Teus con atuendo de ${esc(C[k].corto)}" draggable="false">`).join('')}</div>
+        <div class="next-teus">${top.map(k => `<img src="${TEUS_OUTFIT[k]}" alt="Teus con atuendo de ${esc(C[k].corto)}" draggable="false">`).join('')}</div>
         <div><b>👉 ${esc(T.siguientePasoTitulo)}</b><span>${esc(T.preguntaPor)} <strong>${top.map(k => esc(C[k].codigo)).join(' + ')}</strong>.</span></div>
       </div>
     </article>
