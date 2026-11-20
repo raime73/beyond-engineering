@@ -40,6 +40,7 @@ const programs = {
 const script = document.querySelector('script[src*="cards.js"]');
 const root = new URL('./', script.src);
 const game = new URL('../TeusGame/', root);
+const admissionQr = new URL('../assets/qr-adriana-admisiones.jpeg', root).href;
 const code = document.documentElement.dataset.program;
 const app = document.querySelector('#app');
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
@@ -110,6 +111,19 @@ if (!code) {
           <img src="${image(code)}" alt="" width="300" height="300" loading="lazy">
           <div><strong>Siguiente paso</strong><span>Pregunta en Admisiones por <b>${code}</b>.</span></div>
         </div>
+        <section class="admissions-card" aria-label="Contacto de Admisiones">
+          <div class="admissions-info">
+            <p>Contacto de Admisiones</p>
+            <strong>Adriana Vidal</strong>
+            <span>Asesora de Admisiones - Ingeniería</span>
+            <a href="mailto:adry.vidal@tec.mx">adry.vidal@tec.mx</a>
+            <a href="tel:+526142356534">614 235 6534</a>
+          </div>
+          <a class="admissions-qr" href="https://wa.me/526142356534" target="_blank" rel="noopener noreferrer">
+            <img src="${admissionQr}" alt="" width="96" height="96" loading="lazy">
+            <span>WhatsApp de Adriana</span>
+          </a>
+        </section>
       </article>
     </div>
   `);

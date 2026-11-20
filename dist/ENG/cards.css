@@ -61,6 +61,15 @@ a:focus-visible { outline: 3px solid var(--spark); outline-offset: 4px; }
 .next img { width: 4.5rem; height: auto; flex: 0 0 auto; }
 .next strong, .next span { display: block; }
 .next span { font-size: .88rem; }
+.admissions-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center; margin-top: 1rem; padding: 1rem; border: 1px solid #ffffff40; border-radius: 14px; background: #ffffff0e; }
+.admissions-info { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.admissions-info p { margin: 0 0 .25rem; color: var(--spark); font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.admissions-info strong { font-size: 1.1rem; }
+.admissions-info span { color: var(--muted); font-size: .9rem; }
+.admissions-info a { max-width: 100%; overflow-wrap: anywhere; text-underline-offset: .2rem; font-size: .9rem; }
+.admissions-qr { display: flex; flex-direction: column; align-items: center; gap: .2rem; width: 104px; font-size: .75rem; font-weight: 800; text-align: center; text-decoration: none; }
+.admissions-qr img { width: 96px; height: 96px; object-fit: contain; border: 2px solid var(--white); border-radius: 5px; background: var(--white); }
+.admissions-qr span { text-decoration: underline; text-underline-offset: .2rem; }
 .directory { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; padding-bottom: 3rem; }
 .directory a { display: flex; flex-direction: column; min-height: 260px; padding: 1.3rem; border: 1px solid #ffffff40; border-top: 7px solid var(--program); border-radius: 18px; background: #ffffff0e; text-decoration: none; transition: transform .2s ease, background .2s ease; }
 .directory a:hover { transform: translateY(-5px); background: #ffffff18; }
@@ -77,6 +86,9 @@ a:focus-visible { outline: 3px solid var(--spark); outline-offset: 4px; }
   .card-top { font-size: .64rem; }
   .card-hero { grid-template-columns: 86px 1fr; gap: .6rem; }
   .next img { width: 3.7rem; }
+  .admissions-card { grid-template-columns: 1fr; gap: .6rem; padding: .75rem; }
+  .admissions-qr { justify-self: start; }
+  .admissions-qr img { width: 76px; height: 76px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

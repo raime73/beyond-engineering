@@ -303,6 +303,16 @@ main{flex:1 1 auto;position:relative;overflow:hidden;display:flex;flex-direction
 .next-teus img+img{margin-left:-1.25em}
 .next b{display:block;font-size:.95em}
 .next span{display:block;font-size:.82em;margin-top:.15em;line-height:1.35}
+.admissions-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.65em;align-items:center;margin:.7em 0 0;padding:.8em;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.08)}
+.admissions-card .admissions-info{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.admissions-card .admissions-label{margin:0 0 .2em;color:var(--spark);font-size:.72em;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.admissions-card strong{font-size:.95em}
+.admissions-card .admissions-role{color:var(--muted);font-size:.8em}
+.admissions-card .admissions-info a{max-width:100%;overflow-wrap:anywhere;font-size:.8em;text-underline-offset:.2em}
+.admissions-card .admissions-qr{display:flex;flex-direction:column;align-items:center;gap:.1em;width:84px;font-size:.72em;font-weight:800;text-align:center;text-decoration:none}
+.admissions-card .admissions-qr img{width:76px;height:76px;object-fit:contain;border:2px solid #fff;border-radius:5px;background:#fff}
+.admissions-card .admissions-qr span{text-decoration:underline;text-underline-offset:.2em}
+@media(max-width:420px){.admissions-card{grid-template-columns:1fr}.admissions-card .admissions-qr{justify-self:start}}
 .disclaimer{margin:.6em 0 0;font-size:.72em;color:var(--muted);text-align:center;line-height:1.35}
 .snap-hint{text-align:center;font-weight:800;font-size:.85em;color:var(--spark);margin:0}
 .actions{display:grid;gap:.55em}
@@ -347,7 +357,7 @@ const CONTENT = {
     reinicioAutomatico: 0,       // segundos sin actividad en la tarjeta final para volver al inicio (0 = apagado; en stand, p. ej. 90)
     sonidoInicial: true,         // ¿el sonido empieza encendido?
     enlaceExplorador: '',        // [PENDIENTE] URL del Explorador de Ingenierías (si queda vacío, el botón no aparece)
-    enlaceAdmisiones: '',        // [PENDIENTE] URL o liga de WhatsApp de Admisiones (si queda vacío, el botón no aparece)
+    enlaceAdmisiones: 'https://wa.me/526142356534',
     mostrarDatos: false,         // muestra el "dato" de cada carrera en la revelación. Actívalo SOLO cuando las 5 tengan dato.
     mostrarEmpresas: true        // muestra "Egresados de Campus Chihuahua trabajan en…" en las tarjetas. Actívalo SOLO cuando las 5 carreras tengan su lista.
   },
@@ -1026,6 +1036,19 @@ function screenResult() {
       <div class="next">
         <div class="next-teus">${top.map(k => `<img src="${TEUS_OUTFIT[k]}" alt="Teus con atuendo de ${esc(C[k].corto)}" draggable="false">`).join('')}</div>
         <div><b>👉 ${esc(T.siguientePasoTitulo)}</b><span>${esc(T.preguntaPor)} <strong>${top.map(k => esc(C[k].codigo)).join(' + ')}</strong>.</span></div>
+      </div>
+      <div class="admissions-card">
+        <div class="admissions-info">
+          <p class="admissions-label">Contacto de Admisiones</p>
+          <strong>Adriana Vidal</strong>
+          <span class="admissions-role">Asesora de Admisiones - Ingeniería</span>
+          <a href="mailto:adry.vidal@tec.mx">adry.vidal@tec.mx</a>
+          <a href="tel:+526142356534">614 235 6534</a>
+        </div>
+        <a class="admissions-qr" href="https://wa.me/526142356534" target="_blank" rel="noopener noreferrer">
+          <img src="../assets/qr-adriana-admisiones.jpeg" alt="" width="76" height="76">
+          <span>WhatsApp de Adriana</span>
+        </a>
       </div>
     </article>
     <div class="actions">
