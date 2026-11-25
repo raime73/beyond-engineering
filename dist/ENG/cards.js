@@ -33,7 +33,7 @@ const programs = {
     phrase: 'Diseñas máquinas que sienten, piensan y se mueven.',
     color: '#E8611A',
     areas: ['Robots', 'Automatización', 'Drones', 'Industria 4.0'],
-    companies: ['Ford', 'NVIDIA', 'Resideo', 'Grupo Bocar', 'Ripipsa']
+    companies: ['Ford', 'NVIDIA', 'Resideo', 'Microsoft', 'Ripipsa', 'Space X']
   }
 };
 
