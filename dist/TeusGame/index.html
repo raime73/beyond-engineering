@@ -7,6 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Misión Despegue: prepara un cohete con 5 ingenierías en retos rápidos y descubre en cuáles te ves. Escuela de Ingeniería y Ciencias, Tec de Monterrey Campus Chihuahua.">
 <title>Misión Despegue · 5 ingenierías, 1 cohete · EIC Tec Chihuahua</title>
+<script src="../analytics.js" data-privacy-url="../privacidad.html" defer></script>
 <style>
 /* =========================================================
    ESTILOS
@@ -746,7 +747,7 @@ function screenHome() {
     </div>
     <div>
       <button class="btn btn-main pulse" id="playBtn" type="button">🚀 ${esc(T.botonJugar)}</button>
-      <p class="foot">${esc(T.pie)}</p>
+      <p class="foot">${esc(T.pie)} · <a href="../privacidad.html">Aviso de privacidad</a></p>
     </div>`, 'home');
   $('#playBtn').onclick = () => { Snd.init(); Snd.go(); screenMap(); };
 }

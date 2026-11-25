@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Aviso de privacidad · Beyond Engineering</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f0fc;color:#211a2e;font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:760px;margin:40px auto;padding:32px;background:#fff;border:1px solid #ddd4eb;border-radius:18px}h1{line-height:1.15;font-size:clamp(2rem,5vw,3rem)}h2{margin-top:1.8em;font-size:1.3rem}a{color:#5c15bb}button{padding:10px 16px;border:0;border-radius:8px;background:#5c15bb;color:#fff;font:inherit;font-weight:700;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid #e8611a;outline-offset:3px}@media(max-width:800px){main{margin:0;padding:24px;border:0;border-radius:0;min-height:100vh}}
+  </style>
+</head>
+<body>
+<main>
+  <p><a href="./">← Volver a Beyond Engineering</a></p>
+  <h1>Aviso de privacidad</h1>
+  <p>Beyond Engineering usa Google Analytics 4 para conocer el uso de este sitio y mejorar su contenido. Google Analytics se carga solo si eliges <strong>Aceptar medición</strong> en el aviso que aparece al visitar la página.</p>
+  <h2>Qué se mide</h2>
+  <p>Al aceptar, Google Analytics puede registrar páginas vistas y algunas interacciones, como desplazamientos y clics en enlaces. Puede utilizar cookies e identificadores del navegador. No enviamos deliberadamente a Analytics las respuestas individuales del Explorador de Ingenierías ni información que permita identificar personalmente a visitantes.</p>
+  <p>Google explica cómo utiliza los datos de los sitios que usan sus servicios en <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">su página de privacidad</a>.</p>
+  <h2>Tu elección</h2>
+  <p>Puedes rechazar la medición. Guardamos tu elección en este navegador para no preguntarte en cada página. Para cambiarla, usa este botón; al volver al sitio podrás elegir de nuevo.</p>
+  <button id="reset-choice" type="button">Cambiar mi elección</button>
+</main>
+<script>
+  document.getElementById('reset-choice').addEventListener('click', () => {
+    try { localStorage.removeItem('beyond-engineering-analytics-consent'); } catch { /* Sin almacenamiento. */ }
+    location.href = './';
+  });
+</script>
+</body>
+</html>
