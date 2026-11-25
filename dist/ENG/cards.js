@@ -19,7 +19,7 @@ const programs = {
     phrase: 'Diseñas y construyes ciudades sostenibles: edificios, puentes, carreteras y sistemas hidráulicos',
     color: '#C27C0E',
     areas: ['Estructuras', 'Agua', 'BIM', 'Movilidad urbana'],
-    companies: ['GCC', 'Grupo CANO', 'Abitat', 'Crocsa', 'FRACTAL STRUCTURAL', 'COPACHISA']
+    companies: ['GCC', 'GRUPO CANO', 'ABITAT', 'CROCSA', 'FRACTAL STRUCTURAL', 'COPACHISA']
   },
   IIS: {
     name: 'Ingeniería Industrial y de Sistemas',
